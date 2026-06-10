@@ -1,308 +1,366 @@
 /* ════════════════════════════════════════════════
    THE YOUNG FOUNDRY — CURRICULUM JOURNEY MAP
-   Grade 1-10 · PYP · MYP · Senior School
+   One-window view · Grade 1 (bottom) → Grade 10 (top)
    ════════════════════════════════════════════════ */
 
-/* ── Journey Hero ───────────────────────────────── */
-.journey-hero {
-  background: linear-gradient(150deg, #1a1060 0%, #3d2fa0 35%, #E53935 75%, #F97316 100%);
-  color: white;
-  padding: 90px var(--sp-lg) var(--sp-2xl);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 520px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.journey-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ccircle cx='50' cy='50' r='1.5' fill='rgba(255,255,255,0.4)'/%3E%3Ccircle cx='150' cy='80' r='1' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='250' cy='30' r='2' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='350' cy='120' r='1.5' fill='rgba(255,255,255,0.4)'/%3E%3Ccircle cx='80' cy='200' r='1' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='320' cy='220' r='2' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='180' cy='300' r='1' fill='rgba(255,255,255,0.4)'/%3E%3Ccircle cx='380' cy='380' r='1.5' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='20' cy='350' r='1' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E") repeat;
-  opacity: 0.6;
-  pointer-events: none;
-}
-.journey-hero .hero-eyebrow {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  margin-bottom: var(--sp-md);
-}
-.journey-hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 6vw, 4.2rem);
-  line-height: 1.1;
-  margin-bottom: var(--sp-sm);
-}
-.journey-hero h1 em { color: var(--brand-yellow); font-style: normal; }
-.journey-hero .hero-sub {
-  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-  opacity: 0.85;
-  max-width: 560px;
-  margin: 0 auto var(--sp-xl);
-  line-height: 1.65;
-  font-weight: 600;
+.journey-page {
+  overflow: hidden;           /* the map owns the screen */
 }
 
-/* ── Avatar Card ────────────────────────────────── */
-.avatar-showcase {
-  position: relative;
-  z-index: 2;
+.journey-screen {
+  height: 100vh;
+  padding-top: 58px;          /* clear the fixed HUD */
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #2a1a70 0%, #4527A0 30%, #E53935 75%, #FBC02D 100%);
+}
+
+/* ── Top bar: title + avatar ────────────────────── */
+.journey-topbar {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: var(--sp-lg);
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  justify-content: space-between;
+  gap: var(--sp-md);
+  padding: 10px var(--sp-lg);
+  color: white;
+}
+.journey-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.6vw, 1.6rem);
+  line-height: 1.1;
+}
+.journey-title em { color: var(--brand-yellow); font-style: normal; }
+.journey-tagline {
+  font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+  opacity: 0.8;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.avatar-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.15);
   border: 1.5px solid rgba(255,255,255,0.3);
   border-radius: var(--r-xl);
-  padding: var(--sp-md) var(--sp-xl);
-  max-width: 560px;
-  width: 100%;
+  padding: 6px 14px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-.avatar-figure {
-  font-size: 3rem;
+.avatar-chip-emoji {
+  font-size: 1.9rem;
   line-height: 1;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
 }
-.avatar-info { text-align: left; }
-.avatar-title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  margin-bottom: 2px;
-}
-.avatar-subtitle { font-size: 0.85rem; opacity: 0.8; font-weight: 600; }
-.avatar-progress {
-  margin-top: 8px;
+.avatar-chip-info {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 130px;
 }
-.avatar-progress-bar {
-  height: 6px;
-  flex: 1;
+.avatar-chip-info strong {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  line-height: 1.15;
+}
+.avatar-chip-bar {
+  display: block;
+  height: 5px;
   background: rgba(255,255,255,0.25);
   border-radius: var(--r-full);
   overflow: hidden;
-  min-width: 120px;
 }
-.avatar-progress-fill {
+.avatar-chip-fill {
+  display: block;
   height: 100%;
   background: var(--brand-yellow);
   border-radius: var(--r-full);
   transition: width 1s ease;
 }
-.avatar-progress-label {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  font-weight: 700;
-  white-space: nowrap;
-}
+.avatar-chip-info small { font-size: 0.65rem; opacity: 0.75; font-weight: 700; }
 
-/* ── Band Container ─────────────────────────────── */
-.journey-band {
-  position: relative;
-  padding: var(--sp-2xl) 0 var(--sp-xl);
-}
-
-/* Foundation: warm sunshine */
-.band-foundation {
-  background: linear-gradient(180deg, #FFFDE7 0%, #FFF9C4 100%);
-}
-.band-foundation .band-accent { color: #F57F17; }
-.band-foundation .band-accent-bg { background: #F57F17; }
-.band-foundation .concept-dot { background: #F9A825; border-color: #F57F17; }
-.band-foundation .concept-card { border-color: #FFE082; }
-.band-foundation .concept-card:hover { border-color: #F9A825; box-shadow: 0 8px 24px -8px rgba(249,168,37,0.4); }
-.band-foundation .concept-link { background: #F57F17; }
-.band-foundation .path-line { background: linear-gradient(180deg, #F9A825 0%, #F57F17 100%); }
-
-/* PYP: warm coral red */
-.band-pyp {
-  background: linear-gradient(180deg, #FFF3E0 0%, #FFE0B2 100%);
-}
-.band-pyp .band-accent { color: var(--brand-red); }
-.band-pyp .band-accent-bg { background: var(--brand-red); }
-.band-pyp .concept-dot { background: #EF9A9A; border-color: var(--brand-red); }
-.band-pyp .concept-card { border-color: #FFCCBC; }
-.band-pyp .concept-card:hover { border-color: var(--brand-red); box-shadow: 0 8px 24px -8px rgba(229,57,53,0.3); }
-.band-pyp .concept-link { background: var(--brand-red); }
-.band-pyp .path-line { background: linear-gradient(180deg, var(--brand-red) 0%, var(--brand-red-dark) 100%); }
-
-/* MYP: electric blue */
-.band-myp {
-  background: linear-gradient(180deg, #E3F2FD 0%, #BBDEFB 100%);
-}
-.band-myp .band-accent { color: #0D47A1; }
-.band-myp .band-accent-bg { background: var(--brand-blue); }
-.band-myp .concept-dot { background: #90CAF9; border-color: var(--brand-blue); }
-.band-myp .concept-card { border-color: #90CAF9; }
-.band-myp .concept-card:hover { border-color: var(--brand-blue); box-shadow: 0 8px 24px -8px rgba(30,136,229,0.35); }
-.band-myp .concept-link { background: var(--brand-blue); }
-.band-myp .path-line { background: linear-gradient(180deg, var(--brand-blue) 0%, #0D47A1 100%); }
-
-/* Senior: deep amethyst gold */
-.band-senior {
-  background: linear-gradient(180deg, #EDE7F6 0%, #D1C4E9 100%);
-}
-.band-senior .band-accent { color: #4527A0; }
-.band-senior .band-accent-bg { background: var(--algebra-primary); }
-.band-senior .concept-dot { background: #CE93D8; border-color: var(--algebra-primary); }
-.band-senior .concept-card { border-color: #CE93D8; }
-.band-senior .concept-card:hover { border-color: var(--algebra-primary); box-shadow: 0 8px 24px -8px rgba(91,79,207,0.35); }
-.band-senior .concept-link { background: var(--algebra-primary); }
-.band-senior .path-line { background: linear-gradient(180deg, var(--algebra-primary) 0%, #4527A0 100%); }
-
-/* ── Band Header ────────────────────────────────── */
-.band-header {
-  max-width: 1100px;
-  margin: 0 auto var(--sp-xl);
-  padding: 0 var(--sp-lg);
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sp-lg);
-}
-.band-badge {
-  flex-shrink: 0;
-  width: 72px;
-  height: 72px;
-  border-radius: var(--r-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.2rem;
-  color: white;
-}
-.band-meta { flex: 1; }
-.band-label {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.7;
-  margin-bottom: 2px;
-}
-.band-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-  color: var(--text-dark);
-  line-height: 1.1;
-}
-.band-desc {
-  font-size: 0.95rem;
-  color: var(--text-soft);
-  margin-top: var(--sp-sm);
-  max-width: 520px;
-  line-height: 1.6;
-  font-weight: 600;
-}
-.grade-pill {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  padding: 3px 12px;
-  border-radius: var(--r-full);
-  color: white;
-  margin-top: var(--sp-sm);
-}
-
-/* ── Journey Path ───────────────────────────────── */
-.journey-path {
-  position: relative;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 var(--sp-lg);
-}
-.path-spine {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  transform: translateX(-50%);
-  border-radius: var(--r-full);
-}
-
-/* ── Concept Row ────────────────────────────────── */
-.concept-row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-lg);
-  margin-bottom: var(--sp-xl);
-  position: relative;
-}
-.concept-row.flip {
-  flex-direction: row-reverse;
-}
-.concept-spacer {
+/* ── The map: 4 stacked band rows ───────────────── */
+.journey-map {
   flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;    /* JS renders Senior first → top */
+  gap: 6px;
+  padding: 0 var(--sp-lg) 6px;
 }
-.concept-dot-wrap {
+
+.band-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-md);
+  border-radius: var(--r-lg);
+  padding: 8px var(--sp-md);
+  position: relative;
+  border: 2px solid transparent;
+}
+/* Band looks — each stage of the climb has its own air */
+.band-row.band-senior     { background: linear-gradient(135deg, #EDE7F6 0%, #D1C4E9 100%); border-color: #B39DDB; }
+.band-row.band-myp        { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-color: #90CAF9; }
+.band-row.band-pyp        { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-color: #FFB74D; }
+.band-row.band-foundation { background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%); border-color: #FFF176; }
+
+.band-row.band-senior     { --band-color: #5B4FCF; --band-dark: #4527A0; }
+.band-row.band-myp        { --band-color: #1E88E5; --band-dark: #0D47A1; }
+.band-row.band-pyp        { --band-color: #E53935; --band-dark: #C62828; }
+.band-row.band-foundation { --band-color: #F9A825; --band-dark: #F57F17; }
+
+/* Band sidebar: badge + name + grades */
+.band-side {
   flex-shrink: 0;
-  width: 44px;
+  width: 118px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+  border-right: 2px dashed var(--band-color);
+  padding-right: var(--sp-sm);
+}
+.band-side .band-emoji {
+  font-size: clamp(1.2rem, 2.6vh, 1.8rem);
+  line-height: 1;
+}
+.band-side .band-name {
+  font-family: var(--font-display);
+  font-size: clamp(0.68rem, 1.6vh, 0.85rem);
+  color: var(--band-dark);
+  line-height: 1.1;
+}
+.band-side .band-grades {
+  font-size: clamp(0.58rem, 1.3vh, 0.7rem);
+  font-weight: 800;
+  color: white;
+  background: var(--band-color);
+  padding: 1px 9px;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+}
+.band-side .band-here {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--brand-green-dark);
+  background: white;
+  border: 1.5px solid var(--brand-green);
+  border-radius: var(--r-full);
+  padding: 1px 8px;
+  margin-top: 2px;
+  white-space: nowrap;
+  animation: pulse-badge 2s ease infinite;
+}
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.07); }
+}
+
+/* Concept chips area */
+.band-concepts {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   gap: 4px;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+/* ── Concept chip ───────────────────────────────── */
+.concept-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: white;
+  border: 2px solid var(--band-color);
+  border-radius: var(--r-lg);
+  padding: clamp(4px, 1vh, 9px) 8px;
+  width: clamp(82px, 9.5vw, 116px);
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   position: relative;
+}
+.concept-chip:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 20px -8px var(--band-color);
   z-index: 2;
 }
-.concept-dot {
-  width: 28px;
-  height: 28px;
+.concept-chip .chip-emoji {
+  font-size: clamp(1.05rem, 2.6vh, 1.5rem);
+  line-height: 1;
+}
+.concept-chip .chip-name {
+  font-family: var(--font-display);
+  font-size: clamp(0.55rem, 1.35vh, 0.68rem);
+  color: var(--text-dark);
+  line-height: 1.15;
+  text-align: center;
+}
+.concept-chip .chip-status {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 3px solid;
-  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   font-weight: 800;
-  transition: transform 0.3s ease;
+  border: 2px solid white;
+  background: var(--band-color);
+  color: white;
 }
-.concept-dot.active { transform: scale(1.3); }
-
-/* ── Concept Card ───────────────────────────────── */
-.concept-card {
-  flex: 1;
-  background: white;
-  border: 2px solid;
-  border-radius: var(--r-xl);
-  padding: var(--sp-lg);
-  max-width: 460px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  position: relative;
-}
-.concept-card:hover { transform: translateY(-4px); }
-.concept-card.locked {
+.concept-chip.is-done   .chip-status { background: var(--brand-green); }
+.concept-chip.is-active .chip-status { background: var(--brand-orange); }
+.concept-chip.is-done   { border-color: var(--brand-green); }
+.concept-chip.is-active { border-color: var(--brand-orange); box-shadow: 0 0 0 3px rgba(249,115,22,0.25); }
+.concept-chip.is-locked {
   opacity: 0.55;
-  filter: grayscale(0.4);
+  filter: grayscale(0.5);
 }
-.concept-card-top {
+.concept-chip.is-locked .chip-status { background: var(--text-soft); }
+.concept-chip.is-key::after {
+  content: '🔑';
+  position: absolute;
+  top: -8px;
+  left: -7px;
+  font-size: 0.7rem;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+/* Avatar marker travelling up the map */
+.band-avatar-marker {
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.35));
+  z-index: 3;
+  animation: bob 2.2s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(-50%); }
+  50%      { transform: translateY(calc(-50% - 5px)); }
+}
+
+/* ── Legend footer ──────────────────────────────── */
+.journey-legend {
+  flex-shrink: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-lg);
+  padding: 6px var(--sp-lg) 10px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.legend-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  border: 2px solid white;
+  color: white;
+}
+.legend-done   { background: var(--brand-green); }
+.legend-active { background: var(--brand-orange); }
+.legend-ready  { background: var(--brand-blue); }
+.legend-locked { background: var(--text-soft); font-size: 0.55rem; }
+.legend-back {
+  color: white;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  text-decoration: none;
+  opacity: 0.85;
+  padding: 3px 12px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: var(--r-full);
+}
+.legend-back:hover { opacity: 1; background: rgba(255,255,255,0.12); }
+
+/* ── Concept detail modal ───────────────────────── */
+.concept-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 16, 96, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-lg);
+  z-index: 1000;
+}
+.concept-modal-overlay[hidden] { display: none; }
+.concept-modal {
+  background: white;
+  border-radius: var(--r-xl);
+  max-width: 480px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--sp-lg);
+  position: relative;
+  border-top: 8px solid var(--modal-accent, var(--brand-green));
+  box-shadow: var(--shadow-lg);
+  animation: modal-pop 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+@keyframes modal-pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.concept-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg);
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.concept-modal-close:hover { background: var(--border); color: var(--text-dark); }
+.concept-modal-head {
+  display: flex;
+  align-items: center;
   gap: var(--sp-md);
   margin-bottom: var(--sp-md);
 }
-.concept-icon {
-  font-size: 2rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.concept-head { flex: 1; }
-.concept-name {
+.concept-modal-icon { font-size: 2.4rem; line-height: 1; }
+.concept-modal-name {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   color: var(--text-dark);
-  line-height: 1.2;
+  line-height: 1.15;
 }
-.concept-grade {
+.concept-modal-grade {
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -310,30 +368,25 @@
   color: var(--text-soft);
   margin-top: 2px;
 }
-.concept-insight {
-  font-size: 0.875rem;
+.concept-modal-insight {
+  font-size: 0.92rem;
   color: var(--text-mid);
   font-weight: 700;
-  line-height: 1.5;
-  margin-bottom: var(--sp-md);
-  padding: 8px 12px;
+  line-height: 1.55;
+  padding: 10px 14px;
   background: var(--bg);
   border-radius: var(--r-md);
-  border-left: 3px solid;
-}
-.concept-professions {
+  border-left: 4px solid var(--modal-accent, var(--brand-green));
   margin-bottom: var(--sp-md);
 }
+.concept-modal-section { margin-bottom: var(--sp-md); }
 .concept-professions-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-soft);
   margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 .profession-pills {
   display: flex;
@@ -350,177 +403,57 @@
   color: var(--text-mid);
   white-space: nowrap;
 }
-.concept-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--sp-sm);
+.concept-modal-builds {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  font-weight: 700;
+  margin-bottom: var(--sp-md);
 }
-.concept-link {
+.concept-modal-actions {
+  display: flex;
+  justify-content: center;
+}
+.concept-modal-actions .concept-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   color: white;
   text-decoration: none;
   font-family: var(--font-display);
-  font-size: 0.85rem;
-  padding: 7px 16px;
+  font-size: 0.95rem;
+  padding: 10px 22px;
   border-radius: var(--r-full);
+  background: var(--modal-accent, var(--brand-green));
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
-.concept-link:hover { transform: translateY(-2px); opacity: 0.9; }
-.concept-coming-soon {
-  font-size: 0.75rem;
+.concept-modal-actions .concept-link:hover { transform: translateY(-2px); opacity: 0.9; }
+.concept-modal-actions .concept-coming-soon {
+  font-size: 0.8rem;
   font-weight: 800;
   color: var(--text-soft);
-  padding: 7px 12px;
+  padding: 9px 18px;
   background: var(--bg);
   border: 1.5px dashed var(--border);
   border-radius: var(--r-full);
 }
-.concept-foundation {
-  font-size: 0.75rem;
-  color: var(--text-soft);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
 
-/* avatar "you are here" marker */
-.you-are-here {
-  position: absolute;
-  top: -14px;
-  right: -14px;
-  background: var(--brand-green);
-  color: white;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  padding: 3px 10px;
-  border-radius: var(--r-full);
-  border: 2px solid white;
-  box-shadow: var(--shadow-sm);
-  white-space: nowrap;
-  animation: pulse-badge 2s ease infinite;
-}
-@keyframes pulse-badge {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-
-/* ── Grade Dividers ─────────────────────────────── */
-.grade-divider {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-md);
-  max-width: 1100px;
-  margin: 0 auto var(--sp-lg);
-  padding: 0 var(--sp-lg);
-}
-.grade-divider-line {
-  flex: 1;
-  height: 1.5px;
-  background: currentColor;
-  opacity: 0.2;
-}
-.grade-divider-label {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.55;
-  white-space: nowrap;
-}
-
-/* ── Destination Banner ─────────────────────────── */
-.destination-banner {
-  background: linear-gradient(135deg, #1a1060 0%, #4527A0 50%, var(--algebra-primary) 100%);
-  color: white;
-  padding: var(--sp-2xl) var(--sp-lg);
-  text-align: center;
-}
-.destination-banner h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  margin-bottom: var(--sp-md);
-}
-.destination-banner h2 em { color: var(--brand-yellow); font-style: normal; }
-.destination-banner p {
-  font-size: 1.05rem;
-  opacity: 0.85;
-  max-width: 600px;
-  margin: 0 auto var(--sp-xl);
-  font-weight: 600;
-  line-height: 1.7;
-}
-.achievement-row {
-  display: flex;
-  justify-content: center;
-  gap: var(--sp-md);
-  flex-wrap: wrap;
-}
-.achievement-chip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.15);
-  border: 1.5px solid rgba(255,255,255,0.3);
-  border-radius: var(--r-xl);
-  padding: var(--sp-md) var(--sp-lg);
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-}
-.achievement-chip .chip-icon { font-size: 1.5rem; }
-
-/* ── "How it connects" arrows ───────────────────── */
-.band-connector {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--sp-sm);
-  padding: var(--sp-lg) 0 0;
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  color: var(--text-soft);
-}
-.band-connector-arrow {
-  font-size: 2rem;
-  line-height: 1;
-  animation: float-arrow 2s ease-in-out infinite;
-}
-@keyframes float-arrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-}
-
-/* ── Responsive ─────────────────────────────────── */
-@media (max-width: 800px) {
-  .concept-row, .concept-row.flip {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 48px;
+/* ── Small screens: the map scrolls instead ─────── */
+@media (max-width: 720px), (max-height: 560px) {
+  .journey-page { overflow: auto; }
+  .journey-screen { height: auto; min-height: 100vh; }
+  .band-row { flex-direction: column; }
+  .band-side {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+    border-right: none;
+    border-bottom: 2px dashed var(--band-color);
+    padding: 0 0 6px;
+    margin-bottom: 6px;
   }
-  .concept-spacer { display: none; }
-  .concept-dot-wrap {
-    position: absolute;
-    left: 4px;
-    top: var(--sp-lg);
-  }
-  .path-spine { left: 28px; }
-  .concept-card { max-width: 100%; }
-  .avatar-showcase {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--sp-sm);
-    padding: var(--sp-md);
-  }
-  .avatar-info { text-align: center; }
-  .avatar-progress { justify-content: center; }
-  .band-header { flex-direction: column; }
-}
-@media (max-width: 500px) {
-  .journey-hero { padding: 80px var(--sp-md) var(--sp-xl); }
-  .band-header { padding: 0 var(--sp-md); }
-  .journey-path { padding: 0 var(--sp-md); }
+  .band-concepts { padding: 4px 0; }
+  .concept-chip { width: 88px; }
+  .journey-topbar { flex-direction: column; align-items: stretch; text-align: center; }
+  .avatar-chip { justify-content: center; }
 }
