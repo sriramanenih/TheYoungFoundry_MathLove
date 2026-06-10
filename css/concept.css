@@ -467,6 +467,139 @@
   white-space: nowrap;
 }
 
+/* ── Stepwise worked example ─────────────────────── */
+.block-stepwise { background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-lg); }
+.stepwise-steps { margin: var(--sp-md) 0; display: flex; flex-direction: column; gap: var(--sp-sm); }
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-sm);
+  padding: var(--sp-sm) var(--sp-md);
+  background: white;
+  border-radius: var(--r-md);
+  border-left: 3px solid var(--concept-accent);
+  animation: stepIn 0.3s ease;
+}
+.step-item.step-hidden { display: none; }
+@keyframes stepIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.step-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--concept-accent);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.step-body { font-size: 0.95rem; line-height: 1.55; color: var(--text-main); }
+.step-next-btn {
+  margin-top: var(--sp-sm);
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  background: var(--concept-accent);
+  color: white;
+  border: none;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: opacity var(--t-fast);
+}
+.step-next-btn:disabled { opacity: 0.5; cursor: default; }
+.step-next-btn:not(:disabled):hover { opacity: 0.85; }
+
+/* ── Fill-in-the-blank ───────────────────────────── */
+.block-fillblank {
+  background: var(--concept-bg);
+  border: 2px dashed var(--concept-accent);
+  border-radius: var(--r-lg);
+  padding: var(--sp-lg);
+}
+.fillblank-sentence {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-main);
+  margin: var(--sp-sm) 0;
+}
+.fb-input {
+  display: inline-block;
+  width: 72px;
+  padding: 2px 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  text-align: center;
+  color: var(--concept-dark);
+  background: white;
+  border: none;
+  border-bottom: 2px solid var(--concept-accent);
+  border-radius: 4px 4px 0 0;
+  outline: none;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+.fb-input:focus { border-bottom-color: var(--concept-dark); background: #fff; }
+.fb-input.fb-correct { background: #E8F5E9; border-bottom-color: var(--brand-green); color: #2E7D32; }
+.fb-input.fb-wrong   { background: #FFEBEE; border-bottom-color: #E53935; color: #B71C1C; }
+.fb-hint { margin-top: var(--sp-sm); }
+.fb-hint-toggle {
+  background: none;
+  border: none;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline dotted;
+}
+.fb-hint-text {
+  display: inline;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  margin-left: var(--sp-sm);
+  font-style: italic;
+}
+
+/* ── Drill (extra practice) ──────────────────────── */
+.block-drill {
+  background: white;
+  border: 2px solid var(--concept-accent);
+  border-radius: var(--r-lg);
+  padding: var(--sp-lg);
+  margin-top: var(--sp-lg);
+  animation: fadeSlideIn 0.35s ease;
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.drill-head { margin-bottom: var(--sp-lg); }
+.drill-sub { font-size: 0.85rem; color: var(--text-soft); margin-top: 2px; }
+.drill-q {
+  padding: var(--sp-md) 0;
+  border-top: 1px solid var(--border);
+}
+.drill-q:first-of-type { border-top: none; }
+
+/* ── Completion banner actions ───────────────────── */
+.banner-actions {
+  display: flex;
+  gap: var(--sp-md);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--sp-md);
+}
+.btn-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.15); }
+
 /* ── Welcome modal (insight popup) ──────────────── */
 .welcome-modal {
   position: fixed;

@@ -1,18 +1,19 @@
 /* ════════════════════════════════════════════════
    CONCEPT PAGE RENDERER
-   Reads ?c=<conceptId> from MYP_CONTENT, themes the
-   page, renders the topic sidebar + content blocks
-   with progressive disclosure, and reports topic
-   completion to the YF engine.
+   Block types: story, reveal, key, example,
+     think, try, teach (gated),
+     fillblank (gated, type-in),
+     stepwise  (un-gated, step-by-step),
+     drill     (un-gated, optional extra practice)
    ════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  let concept = null;        /* active concept object */
-  let topicIdx = 0;          /* index of the open topic */
-  let answered = {};         /* { blockIndex: true } for the open topic */
-  let misses = 0;            /* wrong answers in the open topic */
+  let concept = null;
+  let topicIdx = 0;
+  let answered = {};   /* { blockIndex: true } for open topic */
+  let misses = 0;
 
   /* ── Helpers ──────────────────────────────────── */
 
@@ -21,7 +22,10 @@
     return m ? m[1] : null;
   }
 
-  function isQuestion(b) { return b.t === 'think' || b.t === 'try'; }
+  /* fillblank is gated — child must answer to proceed */
+  function isQuestion(b) {
+    return b.t === 'think' || b.t === 'try' || b.t === 'fillblank';
+  }
 
   function topicComplete(topic) {
     return YF.isActivityComplete(concept.worldId, topic.id);
@@ -82,9 +86,6 @@
   }
 
   /* ── Progressive disclosure ───────────────────── */
-  /* Show blocks in order; stop revealing past the first
-     unanswered question. A 'reveal' immediately after an
-     answered think appears with everything before it.   */
 
   function updateVisibility(container) {
     const blocks = [...container.querySelectorAll('[data-block]')];
@@ -94,8 +95,8 @@
       const type = el.dataset.type;
       if (gateHit) { el.style.display = 'none'; return; }
       el.style.display = '';
-      if ((type === 'think' || type === 'try' || type === 'teach') && !answered[idx]) {
-        gateHit = true;       /* show this block, hide the rest */
+      if ((type === 'think' || type === 'try' || type === 'fillblank' || type === 'teach') && !answered[idx]) {
+        gateHit = true;
       }
     });
     const banner = container.querySelector('.topic-done-banner');
@@ -106,6 +107,8 @@
 
   function renderBlock(b, idx, container) {
     let el;
+
+    /* ── Static content blocks ──────────────────── */
 
     if (b.t === 'story') {
       el = document.createElement('div');
@@ -127,6 +130,113 @@
       el.className = 'block block-example';
       el.innerHTML = `<div class="example-title">${b.title}</div>${b.html}`;
 
+    /* ── Step-by-step worked example (not gated) ── */
+
+    } else if (b.t === 'stepwise') {
+      el = document.createElement('div');
+      el.className = 'block block-stepwise';
+      el.innerHTML = `<div class="example-title">${b.title}</div>`;
+
+      const stepsWrap = document.createElement('div');
+      stepsWrap.className = 'stepwise-steps';
+      b.steps.forEach((step, si) => {
+        const stepEl = document.createElement('div');
+        stepEl.className = 'step-item' + (si > 0 ? ' step-hidden' : '');
+        stepEl.innerHTML =
+          `<span class="step-num">${si + 1}</span>` +
+          `<span class="step-body">${step}</span>`;
+        stepsWrap.appendChild(stepEl);
+      });
+      el.appendChild(stepsWrap);
+
+      if (b.steps.length > 1) {
+        let revealed = 0;
+        const nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.className = 'btn btn-sm step-next-btn';
+        nextBtn.textContent = 'Next step ▶';
+        nextBtn.addEventListener('click', () => {
+          revealed++;
+          const items = stepsWrap.querySelectorAll('.step-item');
+          if (revealed < items.length) {
+            items[revealed].classList.remove('step-hidden');
+            items[revealed].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          if (revealed >= items.length - 1) {
+            nextBtn.textContent = '✅ All steps shown';
+            nextBtn.disabled = true;
+          }
+        });
+        el.appendChild(nextBtn);
+      }
+
+    /* ── Fill-in-the-blank (gated) ─────────────── */
+
+    } else if (b.t === 'fillblank') {
+      el = document.createElement('div');
+      el.className = 'block block-fillblank';
+      el.innerHTML = `<span class="q-label">✍️ Quick Check</span>`;
+
+      const sentence = document.createElement('p');
+      sentence.className = 'fillblank-sentence';
+      sentence.innerHTML =
+        `<span class="fb-before">${b.before}&nbsp;</span>` +
+        `<input type="text" class="fb-input" placeholder="?" autocomplete="off" spellcheck="false">` +
+        `<span class="fb-after">&nbsp;${b.after}</span>`;
+      el.appendChild(sentence);
+
+      const hintEl = document.createElement('div');
+      hintEl.className = 'fb-hint';
+      hintEl.innerHTML = `<button class="fb-hint-toggle" type="button">💡 Show hint</button><span class="fb-hint-text" hidden>${b.hint}</span>`;
+      el.appendChild(hintEl);
+
+      const fb = document.createElement('div');
+      fb.className = 'q-feedback';
+      el.appendChild(fb);
+
+      const input = sentence.querySelector('.fb-input');
+      const hintToggle = hintEl.querySelector('.fb-hint-toggle');
+      const hintText  = hintEl.querySelector('.fb-hint-text');
+
+      hintToggle.addEventListener('click', () => {
+        hintText.hidden = !hintText.hidden;
+        hintToggle.textContent = hintText.hidden ? '💡 Show hint' : '🙈 Hide hint';
+      });
+
+      function checkBlank() {
+        if (answered[idx]) return;
+        const val = input.value.trim().replace(/\s+/g, '');
+        if (!val) return;
+        const correct = String(b.blank).trim().replace(/\s+/g, '');
+        if (val.toLowerCase() === correct.toLowerCase()) {
+          input.classList.add('fb-correct');
+          input.disabled = true;
+          fb.className = 'q-feedback good';
+          fb.textContent = b.goodFb || '🎉 Correct!';
+          answered[idx] = true;
+          YFUI.pop(el);
+          updateVisibility(container);
+          checkTopicDone(container);
+        } else {
+          misses++;
+          input.classList.add('fb-wrong');
+          fb.className = 'q-feedback bad';
+          fb.textContent = b.badFb || '🤔 Not quite — check your working and try again.';
+          YFUI.shake(el);
+          setTimeout(() => {
+            input.classList.remove('fb-wrong');
+            input.value = '';
+            fb.className = 'q-feedback';
+            fb.textContent = '';
+          }, 1600);
+        }
+      }
+
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') checkBlank(); });
+      input.addEventListener('blur', checkBlank);
+
+    /* ── MCQ (think / try) ──────────────────────── */
+
     } else if (isQuestion(b)) {
       el = document.createElement('div');
       el.className = 'block block-q' + (b.t === 'think' ? ' is-think' : '');
@@ -138,7 +248,6 @@
       const fb = document.createElement('div');
       fb.className = 'q-feedback';
 
-      /* shuffle choice order so the right answer moves around */
       const order = b.choices.map((c, i) => i).sort(() => Math.random() - 0.5);
       order.forEach(ci => {
         const c = b.choices[ci];
@@ -158,7 +267,7 @@
             updateVisibility(container);
             checkTopicDone(container);
           } else {
-            misses += 1;
+            misses++;
             btn.classList.add('wrong');
             btn.disabled = true;
             fb.className = 'q-feedback bad';
@@ -169,6 +278,8 @@
       });
       el.appendChild(grid);
       el.appendChild(fb);
+
+    /* ── Teach-back gate ────────────────────────── */
 
     } else if (b.t === 'teach') {
       el = document.createElement('div');
@@ -207,6 +318,59 @@
         updateVisibility(container);
         checkTopicDone(container);
       });
+
+    /* ── Optional extra practice drill (not gated) ── */
+
+    } else if (b.t === 'drill') {
+      el = document.createElement('div');
+      el.className = 'block block-drill';
+      el.dataset.isDrill = 'true';
+      el.style.display = 'none'; /* revealed by "More examples" button */
+
+      const head = document.createElement('div');
+      head.className = 'drill-head';
+      head.innerHTML = '<span class="q-label">🎯 Extra Practice</span><p class="drill-sub">Three more problems to sharpen your understanding.</p>';
+      el.appendChild(head);
+
+      b.qs.forEach((dq, qi) => {
+        const qEl = document.createElement('div');
+        qEl.className = 'drill-q';
+        qEl.innerHTML = `<p class="q-text">${dq.q}</p>`;
+        const grid = document.createElement('div');
+        grid.className = 'q-choices';
+        const fb = document.createElement('div');
+        fb.className = 'q-feedback';
+
+        const order = dq.choices.map((c, ci) => ci).sort(() => Math.random() - 0.5);
+        order.forEach(ci => {
+          const c = dq.choices[ci];
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'q-choice';
+          btn.textContent = c.label;
+          btn.addEventListener('click', () => {
+            if (qEl.dataset.answered) return;
+            fb.textContent = c.fb;
+            if (c.right) {
+              btn.classList.add('right');
+              fb.className = 'q-feedback good';
+              qEl.dataset.answered = 'true';
+              grid.querySelectorAll('.q-choice').forEach(x => x.disabled = true);
+              YFUI.pop(qEl);
+            } else {
+              misses++;
+              btn.classList.add('wrong');
+              btn.disabled = true;
+              fb.className = 'q-feedback bad';
+              YFUI.shake(qEl);
+            }
+          });
+          grid.appendChild(btn);
+        });
+        qEl.appendChild(grid);
+        qEl.appendChild(fb);
+        el.appendChild(qEl);
+      });
     }
 
     if (el) {
@@ -231,29 +395,49 @@
     renderSidebar();
     renderHUDStats();
 
-    /* completion banner */
     let banner = container.querySelector('.topic-done-banner');
     if (!banner) {
       banner = document.createElement('div');
       banner.className = 'topic-done-banner';
       const isLast = topicIdx >= concept.topics.length - 1;
-      const allTopicsDone = completedCount() === concept.topics.length;
+
       banner.innerHTML =
         `<h3>${misses === 0 ? '🌟 Perfect run!' : '🎉 Topic mastered!'}</h3>` +
-        `<p>${isLast || allTopicsDone
+        `<p>${isLast
             ? 'You\'ve climbed every topic in ' + concept.name + '.'
             : 'The next topic builds right on top of this one.'}</p>`;
-      const btn = document.createElement('button');
-      btn.className = 'btn';
-      btn.type = 'button';
-      if (!isLast) {
-        btn.textContent = '➡️ Next: ' + concept.topics[topicIdx + 1].title;
-        btn.addEventListener('click', () => openTopic(topicIdx + 1));
-      } else {
-        btn.textContent = '🗺️ Back to the Journey Map';
-        btn.addEventListener('click', () => { location.href = 'journey.html'; });
+
+      const actions = document.createElement('div');
+      actions.className = 'banner-actions';
+
+      /* "More examples" button — only when drill block exists */
+      const drillEl = container.querySelector('[data-is-drill]');
+      if (drillEl) {
+        const moreBtn = document.createElement('button');
+        moreBtn.className = 'btn btn-outline';
+        moreBtn.type = 'button';
+        moreBtn.textContent = '📚 More examples';
+        moreBtn.addEventListener('click', () => {
+          drillEl.style.display = '';
+          moreBtn.style.display = 'none';
+          drillEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        actions.appendChild(moreBtn);
       }
-      banner.appendChild(btn);
+
+      /* Next / back button */
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn';
+      nextBtn.type = 'button';
+      if (!isLast) {
+        nextBtn.textContent = '➡️ Next: ' + concept.topics[topicIdx + 1].title;
+        nextBtn.addEventListener('click', () => openTopic(topicIdx + 1));
+      } else {
+        nextBtn.textContent = '🗺️ Back to the Journey Map';
+        nextBtn.addEventListener('click', () => { location.href = 'journey.html'; });
+      }
+      actions.appendChild(nextBtn);
+      banner.appendChild(actions);
       container.appendChild(banner);
     }
     banner.style.display = '';
@@ -275,20 +459,26 @@
 
     topic.blocks.forEach((b, idx) => renderBlock(b, idx, main));
 
-    /* already-completed topics open fully revealed for revision */
+    /* Already-completed topics open fully revealed */
     if (topicComplete(topic)) {
       topic.blocks.forEach((b, idx) => {
         if (isQuestion(b) || b.t === 'teach') answered[idx] = true;
       });
-      main.querySelectorAll('.q-choice, textarea, .block-teach .btn').forEach(x => x.disabled = true);
+      main.querySelectorAll('.q-choice, textarea, .block-teach .btn, .fb-input').forEach(x => x.disabled = true);
+      /* Show drill blocks for revisit */
+      main.querySelectorAll('[data-is-drill]').forEach(el => el.style.display = '');
+      /* Reveal all stepwise steps */
+      main.querySelectorAll('.step-item').forEach(el => el.classList.remove('step-hidden'));
+      main.querySelectorAll('.step-next-btn').forEach(btn => { btn.textContent = '✅ All steps shown'; btn.disabled = true; });
     }
+
     updateVisibility(main);
     renderSidebar();
     main.scrollIntoView({ behavior: 'instant', block: 'start' });
     window.scrollTo(0, 0);
   }
 
-  /* ── HUD stats in the slim bar ────────────────── */
+  /* ── HUD stats ────────────────────────────────── */
 
   function renderHUDStats() {
     const xp = document.getElementById('hud-xp-val');
@@ -343,21 +533,17 @@
     YF.on('xp', renderHUDStats);
     YF.on('coins', renderHUDStats);
 
-    /* Set up welcome modal close button */
     const closeBtn = document.getElementById('welcome-modal-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', closeWelcomeModal);
-      document.getElementById('welcome-modal').addEventListener('click', (e) => {
+      document.getElementById('welcome-modal').addEventListener('click', e => {
         if (e.target.id === 'welcome-modal') closeWelcomeModal();
       });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWelcomeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWelcomeModal(); });
     }
 
-    /* open the first incomplete topic */
     const firstOpen = concept.topics.findIndex(t => !topicComplete(t));
     openTopic(firstOpen === -1 ? 0 : firstOpen);
-
-    /* show welcome modal with professions */
     showWelcomeModal();
   }
 

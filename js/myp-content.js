@@ -36,7 +36,13 @@ window.MYP_CONTENT = {
             ] },
           { t: 'reveal', html: `A <strong>ratio</strong> compares quantities by <strong>multiplication</strong>, not addition. The lassi recipe is the ratio <code>2 : 3</code> — two mango <em>for every</em> three yogurt. To keep the taste, you must <strong>multiply both numbers by the same amount</strong>: 4:6, 6:9, 20:30 all taste identical. That little phrase "for every" is the soul of every ratio.` },
           { t: 'key', html: `A ratio says "for every ___ of this, ___ of that." Scaling a ratio means MULTIPLYING both sides by the same number — never adding.` },
-          { t: 'example', title: '🍝 Pasta for a crowd', html: `A sauce for 4 people uses 6 tomatoes. For 12 people (4 × 3), you need 6 × 3 = <strong>18 tomatoes</strong>. You scaled the ratio 4:6 up to 12:18 — same recipe, same taste, three times the dinner.` },
+          { t: 'fillblank', before: 'Red : yellow = 2 : 5. Scale ×4: you use 8 red, so you need', blank: '20', after: 'cups of yellow. (Same colour, bigger batch.)', hint: '5 × 4 = ?', goodFb: '🎉 Exactly — both sides × 4. The blend stays identical.', badFb: '🤔 The multiplier from 2 to 8 is 4. Apply the SAME multiplier to 5.' },
+          { t: 'stepwise', title: '🍝 Pasta for a crowd', steps: [
+            'Identify the ratio: a sauce for 4 people uses 6 tomatoes → ratio <code>4 : 6</code>.',
+            'Find the multiplier: 4 people → 12 people is ×3.',
+            'Apply to BOTH sides equally: 6 tomatoes × 3 = <strong>18 tomatoes</strong>.',
+            '✅ Same recipe, same taste — three times the dinner! Ratio 12 : 18 = same as 4 : 6.',
+          ]},
           { t: 'try', q: 'Orange paint mixes red : yellow = 3 : 5. You use 9 cups of red. How much yellow keeps the SAME orange?',
             choices: [
               { label: '11 cups (I added 6 to both)', right: false, fb: '🤔 That\'s the adding trap from the lassi story! 9 red is 3 × 3. What must happen to the yellow?' },
