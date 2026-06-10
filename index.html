@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Number Sense Kingdom — The Young Foundry</title>
+  <link rel="stylesheet" href="../../css/tokens.css"/>
+  <link rel="stylesheet" href="../../css/global.css"/>
+  <style>
+    .hero{background:linear-gradient(135deg,#FF9F43,#ee5a24);color:white;padding:80px var(--sp-lg) var(--sp-xl);text-align:center;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .hero h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);text-shadow:0 2px 20px rgba(0,0,0,0.3);}
+  </style>
+</head>
+<body>
+  <nav id="platform-hud">
+    <a href="../../index.html" class="hud-logo"><span>🏭</span><span><span class="tyf">Young</span> <span class="foundry">Foundry</span></span></a>
+    <div class="hud-stats">
+      <div class="hud-stat hud-xp"><span class="icon">⚡</span><span id="hud-xp-val">0</span></div>
+      <div class="hud-stat hud-coin"><span class="icon">🪙</span><span id="hud-coin-val">0</span></div>
+      <a href="../../index.html" class="btn btn-secondary btn-sm">🗺 Map</a>
+    </div>
+  </nav>
+  <div class="page-content">
+    <header class="hero">
+      <div style="font-size:4.5rem;margin-bottom:12px">🏰</div>
+      <h1>Number Sense Kingdom</h1>
+      <p style="opacity:0.9;font-size:1.05rem;font-weight:600;max-width:500px;margin-top:var(--sp-sm)">What do numbers really mean? Build towers, explore place value, and discover the language of quantity.</p>
+    </header>
+    <div class="container" style="padding-top:var(--sp-xl);padding-bottom:var(--sp-2xl);text-align:center">
+      <div class="card" style="max-width:580px;margin:0 auto;padding:var(--sp-xl);border-radius:var(--r-xl)">
+        <div style="font-size:3.5rem">🚧</div>
+        <h2 class="headline mt-md" style="color:var(--text-dark)">Coming Soon!</h2>
+        <p class="body mt-md" style="color:var(--text-soft);line-height:1.7">You'll build number towers, race on number lines, and discover why place value is one of humanity's greatest inventions.</p>
+        <div class="mt-xl">
+          <p class="caption" style="color:var(--text-soft);margin-bottom:var(--sp-md)">Ready to explore now?</p>
+          <a href="../../worlds/algebra-academy/index.html" class="btn btn-purple btn-lg">⚖️ Algebra Academy — Open Now!</a>
+        </div>
+        <a href="../../index.html" class="btn btn-secondary mt-md">← Back to World Map</a>
+      </div>
+    </div>
+  </div>
+  <div id="toast-container"></div>
+  <script src="../../js/engine.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script>YFUI.initHUD(); YFUI.renderHUD();</script>
+</body>
+</html>
