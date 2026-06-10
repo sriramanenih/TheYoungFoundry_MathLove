@@ -10,16 +10,18 @@
   --font-display: 'Fredoka One', 'Comic Sans MS', cursive;
   --font-body:    'Nunito', 'Segoe UI', system-ui, sans-serif;
 
-  /* ── Brand colors (The Young Foundry: red & green) ── */
-  --brand-red:         #C0392B;
-  --brand-red-dark:    #7E2418;
-  --brand-red-deep:    #441008;
-  --brand-red-light:   #ffb4a2;
-  --brand-green:       #2ECC71;
-  --brand-green-dark:  #1E8449;
-  --brand-green-light: #a8f5c8;
-  --brand-green-bg:    #eafaf0;
-  --brand-red-bg:      #fdf0ed;
+  /* ── Brand colors (matches TheYoungFoundry main site) ── */
+  --brand-red:         #E53935;
+  --brand-red-dark:    #C62828;
+  --brand-red-light:   #ef9a9a;
+  --brand-red-bg:      #ffebee;
+  --brand-green:       #43A047;
+  --brand-green-dark:  #388E3C;
+  --brand-green-light: #c8e6c9;
+  --brand-green-bg:    #e8f5e9;
+  --brand-yellow:      #FDD835;
+  --brand-blue:        #1E88E5;
+  --brand-orange:      #F97316;
 
   --tyf-green:  #a8f5c8;
   --green:      #2ECC71;
@@ -37,12 +39,13 @@
   --algebra-border:  #cfc8f2;
   --purple-light:    #e8e4ff;
 
-  /* ── Neutrals ───────────────────────────────── */
-  --bg:        #f7f6fb;
-  --border:    #e6e3ef;
-  --text-dark: #2d2a3e;
-  --text-mid:  #55516b;
-  --text-soft: #8a8699;
+  /* ── Neutrals (matches main site: light / ink / muted) ── */
+  --bg:        #F8F9FA;
+  --border:    #eceef1;
+  --soft:      #eef1f5;
+  --text-dark: #2d3748;
+  --text-mid:  #4a5568;
+  --text-soft: #7b8694;
 
   /* ── Spacing ────────────────────────────────── */
   --sp-xs:  4px;
@@ -60,9 +63,9 @@
   --r-full: 999px;
 
   /* ── Shadows ────────────────────────────────── */
-  --shadow-sm: 0 2px 6px rgba(45, 42, 62, 0.08);
-  --shadow-md: 0 6px 18px rgba(45, 42, 62, 0.12);
-  --shadow-lg: 0 14px 36px rgba(45, 42, 62, 0.18);
+  --shadow-sm: 0 6px 16px -8px rgba(45, 55, 72, 0.25);
+  --shadow-md: 0 10px 24px -10px rgba(45, 55, 72, 0.26);
+  --shadow-lg: 0 14px 34px -16px rgba(45, 55, 72, 0.28);
 
   /* ── Motion ─────────────────────────────────── */
   --t-fast: 0.15s ease;

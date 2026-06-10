@@ -51,7 +51,7 @@ button { font-family: inherit; cursor: pointer; }
   padding: 12px 28px;
   border-radius: var(--r-full);
   border: none;
-  background: var(--brand-red);
+  background: var(--brand-green);
   color: white;
   text-decoration: none;
   box-shadow: 0 4px 0 rgba(0,0,0,0.18);
@@ -104,9 +104,10 @@ button { font-family: inherit; cursor: pointer; }
   justify-content: space-between;
   gap: var(--sp-md);
   padding: 10px var(--sp-lg);
-  background: rgba(68, 16, 8, 0.94);
-  backdrop-filter: blur(8px);
-  color: white;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--border);
+  color: var(--text-dark);
 }
 #platform-hud .hud-logo {
   font-family: var(--font-display);
@@ -115,10 +116,10 @@ button { font-family: inherit; cursor: pointer; }
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: white;
+  color: var(--text-dark);
 }
-#platform-hud .hud-logo .tyf     { color: var(--tyf-green); }
-#platform-hud .hud-logo .foundry { color: var(--brand-red-light); }
+#platform-hud .hud-logo .tyf     { color: var(--brand-red); }
+#platform-hud .hud-logo .foundry { color: var(--brand-green); }
 #platform-hud .hud-stats {
   display: flex;
   align-items: center;
@@ -135,7 +136,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .xp-bar-track {
   height: 8px;
-  background: rgba(255,255,255,0.25);
+  background: var(--soft);
   border-radius: var(--r-full);
   overflow: hidden;
 }
@@ -173,7 +174,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .toast.success { background: var(--green-dark); }
 .toast.error   { background: var(--red); }
-.toast.xp      { background: var(--brand-red); }
+.toast.xp      { background: var(--brand-green); }
 .toast.leaving { animation: toast-out 0.3s ease forwards; }
 
 @keyframes toast-in  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -184,7 +185,7 @@ button { font-family: inherit; cursor: pointer; }
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(68, 16, 8, 0.55);
+  background: rgba(45, 55, 72, 0.5);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
