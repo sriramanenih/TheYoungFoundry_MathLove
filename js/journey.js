@@ -13,9 +13,9 @@
     { min: 0,  emoji: '🌱', title: 'Seeds of Curiosity' },
     { min: 1,  emoji: '🧒', title: 'Number Explorer' },
     { min: 5,  emoji: '🧑‍🔬', title: 'Pattern Seeker' },
-    { min: 10, emoji: '🧑‍💻', title: 'Algebra Apprentice' },
-    { min: 15, emoji: '👨‍🏫', title: 'Math Mentor' },
-    { min: 22, emoji: '🎓', title: 'Young Mathematician' },
+    { min: 12, emoji: '🧑‍💻', title: 'Algebra Apprentice' },
+    { min: 25, emoji: '👨‍🏫', title: 'Math Mentor' },
+    { min: 45, emoji: '🎓', title: 'Young Mathematician' },
   ];
 
   /* ── Bands (render order = top of screen first) ── */
@@ -81,10 +81,12 @@
 
     /* MYP — Grade 6–8 */
     { id: 'ratios', band: 'myp', grade: 'Grade 6 · MYP', icon: '⚖️', name: 'Ratios & Proportion', key: true, gate: 5,
+      world: 'myp-ratios', worldName: '⚖️ Ratio Workshop', worldUrl: 'concept.html?c=ratios',
       insight: 'A recipe that serves 4 can serve 40 — if you understand ratios. Scale changes size, not shape. This is how all of engineering thinks.',
       professions: ['👨‍🍳 Chefs & Nutritionists', '💊 Pharmacists', '🏗️ Engineers', '🗺️ Cartographers', '🎨 Graphic Designers'],
       builds: '🔗 Builds from: Fractions & Division' },
     { id: 'integers', band: 'myp', grade: 'Grade 6 · MYP', icon: '🌡️', name: 'Negative Numbers', gate: 5,
+      world: 'myp-integers', worldName: '🌡️ Below Zero Lab', worldUrl: 'concept.html?c=integers',
       insight: 'The number line doesn\'t stop at zero — it keeps going below. Temperature below freezing, bank overdrafts, sea-level depth: all need negative numbers.',
       professions: ['🌡️ Meteorologists', '🔬 Physicists', '💻 Programmers', '💰 Accountants', '🌊 Oceanographers'],
       builds: '🔗 Builds from: Number Line' },
@@ -94,18 +96,22 @@
       professions: ['🚀 Scientists', '🤖 AI Engineers', '📈 Economists', '🎮 Game Designers', '💊 Medical Researchers'],
       builds: '🔗 Builds from: Arithmetic & Patterns' },
     { id: 'geometry', band: 'myp', grade: 'Grade 7 · MYP', icon: '📐', name: 'Angles & Triangles', gate: 8,
+      world: 'myp-geometry', worldName: '📐 Angle Observatory', worldUrl: 'concept.html?c=geometry',
       insight: 'Every bridge, every building, every airplane wing is made of triangles — the only shape that cannot be squashed into a different shape. Geometry is structural logic.',
       professions: ['🌍 Surveyors', '✈️ Pilots', '🏗️ Civil Engineers', '🏛️ Architects', '🎬 3D Animators'],
       builds: '🔗 Builds from: Shapes & Measurement' },
     { id: 'statistics', band: 'myp', grade: 'Grade 7 · MYP', icon: '🎲', name: 'Probability', gate: 10,
+      world: 'myp-statistics', worldName: '🎲 Probability Lab', worldUrl: 'concept.html?c=statistics',
       insight: 'When you can\'t know something for certain, you can still reason about how likely it is. Statistics lets you make smart decisions under uncertainty — which is basically adult life.',
       professions: ['📊 Data Scientists', '🩺 Doctors', '🎯 Sports Coaches', '🏦 Insurance Analysts', '🌏 Policy Makers'],
       builds: '🔗 Builds from: Data & Graphs' },
     { id: 'pythagorean', band: 'myp', grade: 'Grade 8 · MYP', icon: '📡', name: 'Pythagoras', key: true, gate: 12,
+      world: 'myp-pythagorean', worldName: '📡 Pythagoras Quest', worldUrl: 'concept.html?c=pythagorean',
       insight: 'a² + b² = c² — possibly the most useful equation ever written. GPS, construction, navigation, and computer graphics all live here.',
       professions: ['🏗️ Architects', '📡 GPS Engineers', '🌍 Surveyors', '🎮 Game Developers', '🔭 Astronomers'],
       builds: '🔗 Builds from: Geometry & Algebra' },
     { id: 'linear-functions', band: 'myp', grade: 'Grade 8 · MYP', icon: '📈', name: 'Linear Functions', gate: 12,
+      world: 'myp-linear', worldName: '📈 Line Lab', worldUrl: 'concept.html?c=linear',
       insight: 'y = mx + c describes every constant-speed journey, every salary calculation, every steady trend. This one equation is hiding everywhere in the real world.',
       professions: ['🔬 Physicists', '📈 Economists', '💻 Programmers', '🚗 Automotive Engineers', '🧬 Biologists'],
       builds: '🔗 Builds from: Algebra' },
@@ -151,13 +157,24 @@
     return Object.values(acts).filter(a => a && a.completed).length;
   }
 
+  /* Total activities across every registered world */
+  function totalActivities() {
+    const reg = (window.YF && YF.WORLD_ACTIVITIES) || {};
+    return Object.values(reg).reduce((sum, list) => sum + list.length, 0) || 25;
+  }
+
+  function worldSize(worldId) {
+    const reg = (window.YF && YF.WORLD_ACTIVITIES) || {};
+    return (reg[worldId] || []).length || 5;
+  }
+
   /* status: 'done' | 'active' | 'locked' | 'ready' */
   function conceptStatus(c, state, completed) {
     if (c.gate && completed < c.gate) return 'locked';
     if (c.world) {
       const n = worldCompleted(state, c.world);
-      if (n >= 5) return 'done';
-      if (n > 0)  return 'active';
+      if (n >= worldSize(c.world)) return 'done';
+      if (n > 0) return 'active';
     }
     return 'ready';
   }
@@ -182,7 +199,7 @@
       /* No world mid-progress: park the avatar at the lowest band with a 'ready' playable world */
       const next = CONCEPTS.find(c => c.world && conceptStatus(c, state, completed) === 'ready');
       if (next) activeBand = next.band;
-      else if (completed >= 25) activeBand = 'senior';
+      else if (completed >= totalActivities()) activeBand = 'senior';
     }
 
     const stage = AVATAR_STAGES.reduce((acc, s) => (completed >= s.min ? s : acc), AVATAR_STAGES[0]);
@@ -235,8 +252,9 @@
     if (titleEl) titleEl.textContent = (state.student && state.student.named)
       ? state.student.name + ' — ' + stage.title
       : stage.title;
-    if (fillEl)  fillEl.style.width  = Math.max(2, Math.round(completed / 25 * 100)) + '%';
-    if (labelEl) labelEl.textContent = completed + ' / 25 activities';
+    const total = totalActivities();
+    if (fillEl)  fillEl.style.width  = Math.max(2, Math.round(completed / total * 100)) + '%';
+    if (labelEl) labelEl.textContent = completed + ' / ' + total + ' activities';
   }
 
   /* ── Concept modal ────────────────────────────── */

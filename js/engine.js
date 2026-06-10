@@ -17,6 +17,13 @@
     'multiplication':   ['theater-seats', 'array-builder', 'skip-counter', 'group-detective', 'teach-it'],
     'fraction-factory': ['pizza-cutter', 'fair-share', 'twin-fractions', 'compare-fractions', 'teach-it'],
     'area-perimeter':   ['tile-counter', 'fast-counter', 'fence-builder', 'garden-design', 'teach-it'],
+    /* MYP concept courses (Grade 6–8) — taught in concept.html */
+    'myp-ratios':       ['what-is-ratio', 'equivalent-ratios', 'unit-rates', 'proportions', 'teach-it'],
+    'myp-integers':     ['below-zero', 'adding-negatives', 'multiplying-negatives', 'absolute-value', 'teach-it'],
+    'myp-geometry':     ['what-is-angle', 'angle-pairs', 'triangle-sum', 'triangle-types', 'teach-it'],
+    'myp-statistics':   ['measuring-chance', 'sample-space', 'experiment-vs-theory', 'independent-events', 'teach-it'],
+    'myp-pythagorean':  ['rope-stretchers', 'squares-on-sides', 'missing-side', 'is-it-right', 'teach-it'],
+    'myp-linear':       ['function-machines', 'slope-story', 'starting-point', 'real-world-lines', 'teach-it'],
   };
 
   /* Activity that gates the Diamond tier in each world */
@@ -26,6 +33,12 @@
     'multiplication':   'teach-it',
     'fraction-factory': 'teach-it',
     'area-perimeter':   'teach-it',
+    'myp-ratios':       'teach-it',
+    'myp-integers':     'teach-it',
+    'myp-geometry':     'teach-it',
+    'myp-statistics':   'teach-it',
+    'myp-pythagorean':  'teach-it',
+    'myp-linear':       'teach-it',
   };
 
   const XP_AWARDS = {
@@ -208,6 +221,7 @@
 
   global.YF = {
     XP_AWARDS,
+    WORLD_ACTIVITIES,
     on, emit,
     getState: () => state,
     getXP:    () => state.xp,

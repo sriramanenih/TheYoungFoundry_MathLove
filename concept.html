@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concept — The Young Foundry</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/concept.css" />
+</head>
+<body class="concept-page">
+
+  <!-- ── Slim header bar ──────────────────────────
+       back · icon+name · profession pills · XP    -->
+  <header class="concept-bar" id="concept-bar">
+    <a href="journey.html" class="concept-bar-back" title="Back to Journey Map">←</a>
+    <div class="concept-bar-id">
+      <span class="concept-bar-icon" id="bar-icon">📘</span>
+      <span class="concept-bar-titles">
+        <strong id="bar-name">Concept</strong>
+        <small id="bar-grade">Grade · MYP</small>
+      </span>
+    </div>
+    <div class="concept-bar-professions" id="bar-professions" title="Professions that use this concept every day">
+      <!-- profession pills rendered by JS -->
+    </div>
+    <div class="concept-bar-stats">
+      <span class="bar-stat">⚡ <span id="hud-xp-val">0</span></span>
+      <span class="bar-stat">🪙 <span id="hud-coin-val">0</span></span>
+      <span class="bar-stat bar-level">Lv <span id="hud-level-val">1</span></span>
+    </div>
+  </header>
+
+  <!-- ── Two-pane layout: topics left, content right ── -->
+  <div class="concept-layout">
+    <aside class="topic-sidebar" id="topic-sidebar">
+      <div class="sidebar-head">
+        <span class="sidebar-label">📚 Topics</span>
+        <span class="sidebar-progress" id="sidebar-progress">0 / 5</span>
+      </div>
+      <nav class="topic-list" id="topic-list">
+        <!-- topic buttons rendered by JS -->
+      </nav>
+      <div class="sidebar-tier" id="sidebar-tier"></div>
+    </aside>
+
+    <main class="topic-content" id="topic-content">
+      <!-- active topic rendered by JS -->
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- ── Scripts ─────────────────────────────────── -->
+  <script src="js/engine.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/myp-content.js"></script>
+  <script src="js/concept-page.js"></script>
+
+</body>
+</html>
