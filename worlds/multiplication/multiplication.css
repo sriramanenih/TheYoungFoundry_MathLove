@@ -1,0 +1,37 @@
+/* ── MULTIPLICATION VILLAGE — THEME ───────────── */
+:root {
+  --world-primary: #00b5b6;
+  --world-dark:    #017a76;
+  --world-bg:      #e6fafa;
+  --world-border:  #a8e6e4;
+  --world-grad:    linear-gradient(160deg, #014d4a 0%, #017a76 45%, #00d2d3 100%);
+}
+
+/* Skip-counting sequence */
+.skip-seq {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin: var(--sp-md) 0;
+}
+.skip-seq .num {
+  background: var(--world-bg);
+  border: 2px solid var(--world-border);
+  border-radius: var(--r-md);
+  padding: 8px 14px;
+  color: var(--text-dark);
+}
+.skip-seq input {
+  width: 64px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 8px 4px;
+  border: 3px solid var(--world-primary);
+  border-radius: var(--r-md);
+  outline: none;
+}

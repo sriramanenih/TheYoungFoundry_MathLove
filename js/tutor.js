@@ -37,9 +37,97 @@
       "💡 Peel the equation like an onion: undo the + or − first, then undo the ×. What's the first layer here?",
     ],
     'teach-it': [
-      "🤔 Imagine your friend has never seen an equation. What's the very first thing they'd need to know?",
-      "🧭 Try using the words 'balance' and 'both sides' in your explanation. Why do they matter?",
-      "💡 A great teacher uses an example. Can you walk through solving x + 2 = 5 step by step, in your own words?",
+      "🤔 Imagine your friend has never seen this idea before. What's the very first thing they'd need to know?",
+      "🧭 Use the big words you discovered in this world. WHY does your method work — not just HOW?",
+      "💡 A great teacher uses an example. Can you walk through one, step by step, in your own words?",
+    ],
+
+    /* ── Number Sense Kingdom ── */
+    'tower-builder': [
+      "🤔 Look at the digit in the middle of the number. Is it worth itself — or something more?",
+      "🧭 What's the difference between 3 ones and 3 tens? Build both and compare!",
+      "💡 Read the number out loud: 'three HUNDRED forty seven.' Which blocks does each word ask for?",
+    ],
+    'number-line': [
+      "🤔 Where is the halfway point of the line? Is your number before it or after it?",
+      "🧭 Find the two closest landmarks (like 30 and 40). Which one is your number nearer to?",
+      "💡 Split the space between landmarks into steps of 1. Count your way to the number!",
+    ],
+    'compare-order': [
+      "🤔 Which number has more digits? What does that instantly tell you?",
+      "🧭 Same number of digits? Compare the FIRST digit of each. Then the next…",
+      "💡 Think of the numbers on a number line. The one further right is always bigger.",
+    ],
+    'secret-number': [
+      "🤔 The clues might be out of order! Which clue talks about the biggest place?",
+      "🧭 Write three blanks: _ _ _. Fill hundreds first, then tens, then ones.",
+      "💡 '4 hundreds' means a 4 in the LEFT blank — even if the clue came last!",
+    ],
+
+    /* ── Multiplication Village ── */
+    'theater-seats': [
+      "🤔 Counting every seat one by one works… but is there a faster way? What repeats?",
+      "🧭 How many seats are in ONE row? How many rows? What could you do with those two numbers?",
+      "💡 If one row has 6 seats, then 4 rows have 6 + 6 + 6 + 6. Is there a shortcut for repeated adding?",
+    ],
+    'array-builder': [
+      "🤔 You found one way — could a DIFFERENT pair of numbers make the same total?",
+      "🧭 If 3 × 8 works, what happens when you swap the rows and columns?",
+      "💡 Try small rows first: can 2 rows make it? 3 rows? Which divide it evenly?",
+    ],
+    'skip-counter': [
+      "🤔 How much does the sequence grow at each step? Check the gap between neighbors!",
+      "🧭 Take a number you know and add the jump size. What lands in the blank?",
+      "💡 Skip counting IS multiplication: the 3rd number when counting by 4s is 3 × 4.",
+    ],
+    'group-detective': [
+      "🤔 What is the GROUP in this story? How many are inside each group?",
+      "🧭 Draw it! Circles for groups, dots inside. Now what do you see?",
+      "💡 'Groups × items in each group' — which two numbers in the story are those?",
+    ],
+
+    /* ── Fraction Factory ── */
+    'pizza-cutter': [
+      "🤔 How many slices is the WHOLE pizza cut into? Where does that number live in the fraction?",
+      "🧭 The bottom number counts all the slices. The top number counts the ones you take.",
+      "💡 3/8 means: cut into 8 equal slices, shade exactly 3 of them. Count as you click!",
+    ],
+    'fair-share': [
+      "🤔 If the sharing is FAIR, everyone gets exactly the same. What are we splitting, and among how many?",
+      "🧭 Try sharing ONE bar first among all friends. Then what about the next bar?",
+      "💡 Sharing 2 bars among 4 friends: each friend's share of EACH bar is 1/4. Two bars means…?",
+    ],
+    'twin-fractions': [
+      "🤔 Look at the shaded bars, not the numbers. Which two bars cover the SAME amount?",
+      "🧭 Cut every piece of 1/2 in half. Now how many pieces are shaded — out of how many?",
+      "💡 Twins look different but are equal: multiply top AND bottom by the same number and nothing really changes.",
+    ],
+    'compare-fractions': [
+      "🤔 Don't trust the big numbers! Is 1/8 of a pizza more or less than 1/4? Picture the slices.",
+      "🧭 More slices means each slice is SMALLER. Compare the bars, not the digits.",
+      "💡 Same bottom number? Compare tops. Same top? The smaller bottom wins. Why?",
+    ],
+
+    /* ── Area & Perimeter Park ── */
+    'tile-counter': [
+      "🤔 Count the tiles however you like. Do you notice anything about the rows?",
+      "🧭 Every row has the same number of tiles. Could that speed things up?",
+      "💡 Count one row. Count the rows. You're one step from a famous shortcut…",
+    ],
+    'fast-counter': [
+      "🤔 This grid is BIG. Counting one-by-one will take forever. What did you notice about rows last time?",
+      "🧭 How many tiles in one row? How many rows? Multiplication is repeated adding…",
+      "💡 You're discovering it: tiles in a row × number of rows = ALL the tiles. That's what 'area' means!",
+    ],
+    'fence-builder': [
+      "🤔 The fence goes AROUND the garden, not inside it. Trace the edge with your finger.",
+      "🧭 Walk the edge: across the top, down the side, across the bottom, up again. Add as you go!",
+      "💡 Two sides are the width, two sides are the height. Is there a shortcut for width + height + width + height?",
+    ],
+    'garden-design': [
+      "🤔 You need the area to hit the target EXACTLY. Which width × height pairs multiply to it?",
+      "🧭 Found one design? Stretch it: longer and thinner, or shorter and wider. Does the area stay?",
+      "💡 Same area, different shape — now compare the fences. Are they the same length? Surprised?",
     ],
     'default': [
       "🤔 What do you notice? What do you wonder?",

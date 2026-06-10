@@ -12,16 +12,20 @@
 
   /* Activities per world — mastery = completed / total */
   const WORLD_ACTIVITIES = {
-    'algebra-academy': ['mystery-box', 'balance-scale', 'build-it', 'solve-it', 'teach-it'],
-    'number-sense':    [],
-    'multiplication':  [],
-    'fraction-factory':[],
-    'area-perimeter':  [],
+    'algebra-academy':  ['mystery-box', 'balance-scale', 'build-it', 'solve-it', 'teach-it'],
+    'number-sense':     ['tower-builder', 'number-line', 'compare-order', 'secret-number', 'teach-it'],
+    'multiplication':   ['theater-seats', 'array-builder', 'skip-counter', 'group-detective', 'teach-it'],
+    'fraction-factory': ['pizza-cutter', 'fair-share', 'twin-fractions', 'compare-fractions', 'teach-it'],
+    'area-perimeter':   ['tile-counter', 'fast-counter', 'fence-builder', 'garden-design', 'teach-it'],
   };
 
   /* Activity that gates the Diamond tier in each world */
   const TEACH_BACK = {
-    'algebra-academy': 'teach-it',
+    'algebra-academy':  'teach-it',
+    'number-sense':     'teach-it',
+    'multiplication':   'teach-it',
+    'fraction-factory': 'teach-it',
+    'area-perimeter':   'teach-it',
   };
 
   const XP_AWARDS = {

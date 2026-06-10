@@ -1,0 +1,23 @@
+/* ── AREA & PERIMETER PARK — THEME ────────────── */
+:root {
+  --world-primary: #2ECC71;
+  --world-dark:    #1d8a4c;
+  --world-bg:      #eafaf0;
+  --world-border:  #b8e8cb;
+  --world-grad:    linear-gradient(160deg, #0e4d28 0%, #1d8a4c 45%, #2ECC71 100%);
+}
+
+/* Garden grid cells look like grass; fence highlight */
+.grid-board.garden .cell { background: #b8f0cd; border-color: #2ECC71; }
+.grid-board.fenced .cell.edge { border-color: #8B5A2B; border-width: 3px; }
+
+/* Found-designs list (garden design activity) */
+.design-list {
+  list-style: none;
+  max-width: 420px;
+  margin: var(--sp-md) auto 0;
+  text-align: center;
+  font-weight: 800;
+  color: var(--world-dark);
+}
+.design-list li { padding: 3px 0; }

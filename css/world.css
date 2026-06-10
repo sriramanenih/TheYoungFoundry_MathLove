@@ -1,0 +1,308 @@
+/* ════════════════════════════════════════════════
+   THE YOUNG FOUNDRY — SHARED WORLD PAGE STYLES
+   Each world sets its theme via CSS variables:
+   --world-primary, --world-dark, --world-bg,
+   --world-border, --world-grad
+   ════════════════════════════════════════════════ */
+
+body { background: var(--world-bg, var(--bg)); }
+
+/* ── World header ──────────────────────────────── */
+.world-header {
+  background: var(--world-grad, linear-gradient(160deg, #1a1060, var(--algebra-primary)));
+  color: white;
+  text-align: center;
+  padding: 90px var(--sp-lg) var(--sp-xl);
+  position: relative;
+}
+.world-header .back-link {
+  position: absolute;
+  top: 70px;
+  left: var(--sp-lg);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+}
+.world-header .back-link:hover { color: white; }
+.world-header .world-emoji { font-size: 3.5rem; margin-bottom: var(--sp-sm); }
+.world-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  text-shadow: 0 3px 18px rgba(0,0,0,0.25);
+}
+.world-header p { opacity: 0.9; margin-top: var(--sp-sm); font-weight: 600; }
+.world-header .world-tier { margin-top: var(--sp-md); }
+
+/* ── Layout ────────────────────────────────────── */
+.academy {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--sp-xl) var(--sp-md) var(--sp-2xl);
+}
+.card {
+  background: white;
+  border: 2px solid var(--world-border, var(--border));
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Activity trail ────────────────────────────── */
+.activity-trail { display: grid; gap: var(--sp-md); }
+.activity-node {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: var(--sp-md) var(--sp-lg);
+  background: white;
+  border: 2px solid var(--world-border, var(--border));
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.activity-node:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.activity-node .node-emoji {
+  width: 56px;
+  height: 56px;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--world-bg, var(--bg));
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+}
+.activity-node .node-info { flex: 1; }
+.activity-node h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+.activity-node .node-desc { font-size: 0.85rem; color: var(--text-soft); margin-top: 2px; }
+.activity-node .node-status { font-size: 1.4rem; flex-shrink: 0; }
+.activity-node.done { border-color: var(--green); }
+.activity-node.done .node-emoji { background: #e3f9ec; }
+
+/* ── Stage ─────────────────────────────────────── */
+.stage { margin-top: var(--sp-xl); padding: var(--sp-lg); }
+.stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-md);
+  margin-bottom: var(--sp-lg);
+}
+.stage-head h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--world-dark, var(--text-dark));
+}
+.stage-prompt {
+  background: var(--world-bg, var(--bg));
+  border: 2px solid var(--world-border, var(--border));
+  border-radius: var(--r-lg);
+  padding: var(--sp-md) var(--sp-lg);
+  font-weight: 700;
+  color: var(--text-mid);
+  margin-bottom: var(--sp-lg);
+  line-height: 1.6;
+}
+.stage-feedback {
+  min-height: 28px;
+  margin-top: var(--sp-md);
+  font-weight: 800;
+  text-align: center;
+}
+.stage-feedback.good { color: var(--green-dark); }
+.stage-feedback.bad  { color: var(--red); }
+.stage-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-md);
+  margin-top: var(--sp-lg);
+  flex-wrap: wrap;
+}
+.stage .btn { background: var(--world-primary, var(--algebra-primary)); }
+.stage .btn.btn-secondary { background: white; }
+
+/* ── Big display (questions, numbers) ──────────── */
+.big-display {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  text-align: center;
+  color: var(--text-dark);
+  margin: var(--sp-lg) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Sliders ───────────────────────────────────── */
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  max-width: 480px;
+  margin: 0 auto;
+}
+.slider-row input[type="range"] { flex: 1; accent-color: var(--world-primary, var(--algebra-primary)); }
+.slider-val {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--world-primary, var(--algebra-primary));
+  min-width: 56px;
+  text-align: center;
+}
+
+/* ── Numeric answer input ──────────────────────── */
+.num-input {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  width: 130px;
+  padding: 10px 14px;
+  text-align: center;
+  border: 3px solid var(--world-border, var(--border));
+  border-radius: var(--r-md);
+  outline: none;
+  color: var(--text-dark);
+}
+.num-input:focus { border-color: var(--world-primary, var(--algebra-primary)); }
+.answer-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-md);
+  flex-wrap: wrap;
+}
+
+/* ── Choice buttons ────────────────────────────── */
+.choice-grid {
+  display: grid;
+  gap: var(--sp-sm);
+  max-width: 460px;
+  margin: var(--sp-md) auto 0;
+}
+.choice-grid.row { grid-auto-flow: column; justify-content: center; max-width: none; }
+.choice-btn {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  padding: 12px 20px;
+  background: white;
+  border: 2px solid var(--world-border, var(--border));
+  border-radius: var(--r-md);
+  color: var(--text-dark);
+  transition: border-color var(--t-fast), transform var(--t-fast);
+}
+.choice-btn:hover { border-color: var(--world-primary, var(--algebra-primary)); transform: translateY(-2px); }
+
+/* ── Grid boards (tiles, seats, arrays) ────────── */
+.grid-board {
+  display: grid;
+  gap: 4px;
+  justify-content: center;
+  margin: var(--sp-md) auto;
+}
+.grid-board .cell {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  background: var(--world-bg, var(--bg));
+  border: 2px solid var(--world-border, var(--border));
+  border-radius: 6px;
+}
+.grid-board.compact .cell { width: 26px; height: 26px; font-size: 0.9rem; }
+
+/* ── Fraction bars ─────────────────────────────── */
+.frac-bar {
+  display: flex;
+  height: 44px;
+  max-width: 360px;
+  margin: var(--sp-sm) auto;
+  border: 3px solid var(--text-dark);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.frac-seg { flex: 1; border-right: 2px solid var(--text-dark); background: white; }
+.frac-seg:last-child { border-right: none; }
+.frac-seg.shaded { background: var(--world-primary, var(--algebra-primary)); }
+.frac-label {
+  font-family: var(--font-display);
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+/* ── Pizza (SVG wedges) ────────────────────────── */
+.pizza-wrap { display: flex; justify-content: center; margin: var(--sp-md) 0; }
+.pizza-wrap svg { width: min(240px, 70vw); height: auto; }
+.pizza-wrap .slice {
+  fill: #fff3d6;
+  stroke: #b06b2a;
+  stroke-width: 2;
+  cursor: pointer;
+  transition: fill var(--t-fast);
+}
+.pizza-wrap .slice:hover { fill: #ffe3a8; }
+.pizza-wrap .slice.shaded { fill: var(--world-primary, var(--algebra-primary)); }
+
+/* ── Number line ───────────────────────────────── */
+.number-line {
+  position: relative;
+  max-width: 520px;
+  margin: var(--sp-xl) auto var(--sp-md);
+  height: 56px;
+}
+.number-line .line-track {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--text-dark);
+  border-radius: var(--r-full);
+}
+.number-line .tick {
+  position: absolute;
+  top: 16px;
+  width: 3px;
+  height: 22px;
+  background: var(--text-dark);
+  transform: translateX(-50%);
+}
+.number-line .tick-label {
+  position: absolute;
+  top: 40px;
+  transform: translateX(-50%);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+}
+
+/* ── Teach-back textarea ───────────────────────── */
+.teach-area {
+  width: 100%;
+  min-height: 140px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: var(--sp-md);
+  border: 2px solid var(--world-border, var(--border));
+  border-radius: var(--r-lg);
+  resize: vertical;
+  outline: none;
+}
+.teach-area:focus { border-color: var(--world-primary, var(--algebra-primary)); }
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 600px) {
+  .world-header .back-link { top: 60px; left: var(--sp-md); }
+  .grid-board .cell { width: 26px; height: 26px; font-size: 0.9rem; }
+}
