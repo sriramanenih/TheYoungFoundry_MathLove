@@ -10,7 +10,17 @@
   --font-display: 'Fredoka One', 'Comic Sans MS', cursive;
   --font-body:    'Nunito', 'Segoe UI', system-ui, sans-serif;
 
-  /* ── Brand colors ───────────────────────────── */
+  /* ── Brand colors (The Young Foundry: red & green) ── */
+  --brand-red:         #C0392B;
+  --brand-red-dark:    #7E2418;
+  --brand-red-deep:    #441008;
+  --brand-red-light:   #ffb4a2;
+  --brand-green:       #2ECC71;
+  --brand-green-dark:  #1E8449;
+  --brand-green-light: #a8f5c8;
+  --brand-green-bg:    #eafaf0;
+  --brand-red-bg:      #fdf0ed;
+
   --tyf-green:  #a8f5c8;
   --green:      #2ECC71;
   --green-dark: #27AE60;

@@ -11,7 +11,7 @@
 
     /* Hero */
     .home-hero {
-      background: linear-gradient(160deg, #1a1060 0%, #3d2fa0 40%, #5B4FCF 70%, #7c5cbf 100%);
+      background: linear-gradient(160deg, #441008 0%, #7E2418 40%, #C0392B 70%, #e0603a 100%);
       color: white;
       padding: 80px var(--sp-lg) var(--sp-2xl);
       text-align: center;
@@ -27,8 +27,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(255,217,61,0.08) 0%, transparent 60%),
-                  radial-gradient(ellipse at 70% 30%, rgba(255,107,157,0.08) 0%, transparent 50%);
+      background: radial-gradient(ellipse at 30% 50%, rgba(46,204,113,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 30%, rgba(168,245,200,0.10) 0%, transparent 50%);
       pointer-events: none;
     }
     .home-hero .tagline {
@@ -46,8 +46,8 @@
       text-shadow: 0 4px 30px rgba(0,0,0,0.3);
       margin-bottom: var(--sp-md);
     }
-    .home-hero h1 .tyf  { color: #a8f5c8; }
-    .home-hero h1 .math { color: var(--algebra-accent); }
+    .home-hero h1 .tyf  { color: var(--brand-red-light); }
+    .home-hero h1 .math { color: var(--brand-green-light); }
     .home-hero .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.25rem);
       opacity: 0.85;
@@ -78,16 +78,16 @@
 
     /* Philosophy strip */
     .philosophy-strip {
-      background: var(--algebra-accent);
+      background: var(--brand-green);
       padding: var(--sp-md) var(--sp-lg);
       text-align: center;
     }
     .philosophy-strip p {
       font-family: var(--font-display);
       font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-      color: #1a1060;
+      color: #0e3d22;
     }
-    .philosophy-strip p span { color: var(--algebra-primary); }
+    .philosophy-strip p span { color: white; }
 
     /* Student profile bar */
     .student-bar {
@@ -168,7 +168,7 @@
     }
     .world-card:hover:not(.locked) { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
     .world-card.locked { opacity: 0.6; cursor: not-allowed; }
-    .world-card.featured { border-color: var(--algebra-primary); border-width: 3px; }
+    .world-card.featured { border-color: var(--brand-red); border-width: 3px; }
     .world-card-banner {
       height: 140px;
       display: flex;
@@ -221,8 +221,8 @@
       position: absolute;
       top: 12px;
       right: 12px;
-      background: var(--algebra-accent);
-      color: #1a1060;
+      background: var(--brand-green);
+      color: white;
       font-family: var(--font-display);
       font-size: 0.75rem;
       padding: 4px 12px;
@@ -252,7 +252,7 @@
 
     /* Philosophy section */
     .philosophy-section {
-      background: linear-gradient(135deg, var(--algebra-bg), var(--purple-light));
+      background: linear-gradient(135deg, var(--brand-red-bg), var(--brand-green-bg));
       padding: var(--sp-2xl) var(--sp-lg);
     }
     .philosophy-inner { max-width: 800px; margin: 0 auto; text-align: center; }
@@ -266,14 +266,14 @@
       background: white;
       border-radius: var(--r-lg);
       padding: var(--sp-md) var(--sp-sm);
-      border: 2px solid var(--algebra-border);
+      border: 2px solid #b8e8cb;
       text-align: center;
       box-shadow: var(--shadow-sm);
     }
     .journey-step .step-num {
       width: 32px;
       height: 32px;
-      background: var(--algebra-primary);
+      background: var(--brand-red);
       color: white;
       border-radius: 50%;
       font-family: var(--font-display);
@@ -287,7 +287,7 @@
 
     /* Footer */
     footer {
-      background: var(--text-dark);
+      background: #2b0d07;
       color: rgba(255,255,255,0.7);
       padding: var(--sp-xl) var(--sp-lg);
       text-align: center;
@@ -299,7 +299,7 @@
       margin-bottom: var(--sp-sm);
     }
     footer .footer-logo .tyf  { color: #a8f5c8; }
-    footer .footer-logo .math { color: var(--algebra-accent); }
+    footer .footer-logo .math { color: var(--brand-green-light); }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -330,7 +330,7 @@
         <span class="icon">🪙</span>
         <span id="hud-coin-val">0</span>
       </div>
-      <div class="hud-stat" style="background:var(--algebra-primary);color:white;padding:4px 12px;border-radius:var(--r-full);font-size:0.85rem">
+      <div class="hud-stat" style="background:var(--brand-red);color:white;padding:4px 12px;border-radius:var(--r-full);font-size:0.85rem">
         Lv <span id="hud-level-val">1</span>
         <div class="xp-bar-track" style="width:48px;margin-left:8px">
           <div class="xp-bar-fill" id="hud-xp-bar" style="width:0%"></div>
@@ -353,7 +353,7 @@
       Every formula was invented by someone who wondered why.
       Now it's your turn to wonder — and discover.
     </p>
-    <a href="worlds/algebra-academy/index.html" class="btn btn-lg" style="background:var(--algebra-accent);color:#1a1060;box-shadow:0 5px 0 rgba(0,0,0,0.2);font-size:1.2rem">
+    <a href="worlds/algebra-academy/index.html" class="btn btn-lg" style="background:var(--brand-green);color:white;box-shadow:0 5px 0 rgba(0,0,0,0.2);font-size:1.2rem">
       🚀 Start Your Journey
     </a>
   </header>
@@ -380,7 +380,7 @@
   <section style="padding:var(--sp-xl) 0;background:var(--bg)">
     <div class="map-section">
       <div class="section-header">
-        <p class="caption" style="color:var(--algebra-primary)">🗺️ YOUR LEARNING JOURNEY</p>
+        <p class="caption" style="color:var(--brand-red)">🗺️ YOUR LEARNING JOURNEY</p>
         <h2>Choose Your World</h2>
         <p>Five worlds. Each one builds on the last. Each one built on discovery.</p>
       </div>
@@ -394,7 +394,7 @@
   <!-- ── PHILOSOPHY SECTION ───────────────────────── -->
   <section class="philosophy-section">
     <div class="philosophy-inner">
-      <p class="caption" style="color:var(--algebra-primary)">⚗️ HOW WE LEARN</p>
+      <p class="caption" style="color:var(--brand-red)">⚗️ HOW WE LEARN</p>
       <h2 class="headline mt-sm" style="color:var(--text-dark)">No formula before the "aha moment"</h2>
       <p class="body mt-md" style="color:var(--text-mid);line-height:1.7">
         At The Young Foundry, we believe every mathematical formula is the shortcut to something a child already knows in their bones.

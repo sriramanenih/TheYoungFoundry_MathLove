@@ -51,7 +51,7 @@ button { font-family: inherit; cursor: pointer; }
   padding: 12px 28px;
   border-radius: var(--r-full);
   border: none;
-  background: var(--algebra-primary);
+  background: var(--brand-red);
   color: white;
   text-decoration: none;
   box-shadow: 0 4px 0 rgba(0,0,0,0.18);
@@ -104,7 +104,7 @@ button { font-family: inherit; cursor: pointer; }
   justify-content: space-between;
   gap: var(--sp-md);
   padding: 10px var(--sp-lg);
-  background: rgba(26, 16, 96, 0.92);
+  background: rgba(68, 16, 8, 0.94);
   backdrop-filter: blur(8px);
   color: white;
 }
@@ -118,7 +118,7 @@ button { font-family: inherit; cursor: pointer; }
   color: white;
 }
 #platform-hud .hud-logo .tyf     { color: var(--tyf-green); }
-#platform-hud .hud-logo .foundry { color: var(--algebra-accent); }
+#platform-hud .hud-logo .foundry { color: var(--brand-red-light); }
 #platform-hud .hud-stats {
   display: flex;
   align-items: center;
@@ -141,7 +141,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .xp-bar-fill {
   height: 100%;
-  background: var(--algebra-accent);
+  background: var(--brand-green);
   border-radius: var(--r-full);
   transition: width var(--t-slow);
 }
@@ -173,7 +173,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .toast.success { background: var(--green-dark); }
 .toast.error   { background: var(--red); }
-.toast.xp      { background: var(--algebra-primary); }
+.toast.xp      { background: var(--brand-red); }
 .toast.leaving { animation: toast-out 0.3s ease forwards; }
 
 @keyframes toast-in  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -184,7 +184,7 @@ button { font-family: inherit; cursor: pointer; }
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(26, 16, 96, 0.55);
+  background: rgba(68, 16, 8, 0.55);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -221,7 +221,7 @@ button { font-family: inherit; cursor: pointer; }
   outline: none;
   transition: border-color var(--t-fast);
 }
-.yf-modal input[type="text"]:focus { border-color: var(--algebra-primary); }
+.yf-modal input[type="text"]:focus { border-color: var(--brand-green); }
 
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pop-in  { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
