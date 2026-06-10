@@ -2,7 +2,9 @@
 
 > *Teach children how mathematics was discovered, not how it is memorized.*
 
-**Live:** Deploy to GitHub Pages → `https://[username].github.io/youngfoundry-math`
+**Live:** [https://sriramanenih.github.io/TheYoungFoundry_MathLove](https://sriramanenih.github.io/TheYoungFoundry_MathLove)
+
+**Repo:** [https://github.com/sriramanenih/TheYoungFoundry_MathLove](https://github.com/sriramanenih/TheYoungFoundry_MathLove)
 
 ---
 
@@ -20,7 +22,7 @@ No formula is shown before the child has enough interactive experience to discov
 ## Project Structure
 
 ```
-youngfoundry-math/
+TheYoungFoundry_MathLove/
 │
 ├── index.html                    ← World Map (homepage)
 │
@@ -52,7 +54,7 @@ youngfoundry-math/
 |---|----------|---------|----------|
 | 1 | 🎁 Mystery Box | Variable as unknown | Slider + guess-and-check |
 | 2 | ⚖️ Balance Scale | Equation = equality | Animated tilt scale |
-| 3 | 🔧 Build It | Expressions | Token drag-and-drop builder |
+| 3 | 🔧 Build It | Expressions | Token tap-to-build builder |
 | 4 | 🕵️ Solve It | Solving by undoing | Step-by-step equation solver |
 | 5 | 💎 Teach It | Diamond mastery gate | Free-text Socratic teach-back |
 
@@ -98,29 +100,30 @@ Example:
 ## Deploy to GitHub Pages
 
 ```bash
-# 1. Create repo on GitHub: youngfoundry-math
-# 2. Push this folder
-git init
+# Clone the repo
+git clone https://github.com/sriramanenih/TheYoungFoundry_MathLove.git
+cd TheYoungFoundry_MathLove
+
+# Add files and push
 git add .
 git commit -m "Initial Young Foundry Math Platform"
-git remote add origin https://github.com/[username]/youngfoundry-math.git
-git push -u origin main
+git push origin main
 
-# 3. Enable GitHub Pages
-# Settings → Pages → Source: main branch → / (root)
-# Live at: https://[username].github.io/youngfoundry-math
+# Enable GitHub Pages:
+# Repo → Settings → Pages → Source: main branch → / (root)
+# Live at: https://sriramanenih.github.io/TheYoungFoundry_MathLove
 ```
 
 ---
 
-## Integration with YoungFoundry Main Platform
+## Integration with Main YoungFoundry Platform
 
 When ready to integrate into `sriramanenih.github.io/YoungFoundry`:
 
 1. Copy `worlds/algebra-academy/` into the main YoungFoundry repo
 2. Add a card on the YoungFoundry index pointing to it
 3. The engine/ui/tutor JS files are self-contained — no conflicts
-4. Match the Math Quest color standard (already done — Fredoka One, same tokens)
+4. Fredoka One + color tokens already match the Math Quest standard
 
 ---
 
