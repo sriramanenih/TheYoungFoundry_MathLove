@@ -24,6 +24,12 @@
     'myp-statistics':   ['measuring-chance', 'sample-space', 'experiment-vs-theory', 'independent-events', 'teach-it'],
     'myp-pythagorean':  ['rope-stretchers', 'squares-on-sides', 'missing-side', 'is-it-right', 'teach-it'],
     'myp-linear':       ['function-machines', 'slope-story', 'starting-point', 'real-world-lines', 'teach-it'],
+    /* Senior School concept courses (Grade 9–10) */
+    'senior-quadratics':   ['shape-of-motion', 'roots-and-factors', 'vertex-power', 'quadratic-formula', 'teach-it'],
+    'senior-coordinates':  ['descartes-grid', 'distance-formula', 'midpoint-slope', 'line-equations', 'teach-it'],
+    'senior-trigonometry': ['shadow-measurers', 'sohcahtoa', 'finding-heights', 'waves-and-circles', 'teach-it'],
+    'senior-statistics':   ['average-that-lies', 'measuring-spread', 'sampling-bias', 'correlation-causation', 'teach-it'],
+    'senior-proof':        ['million-not-enough', 'direct-proof', 'contradiction', 'counterexamples', 'teach-it'],
   };
 
   /* Activity that gates the Diamond tier in each world */
@@ -39,6 +45,11 @@
     'myp-statistics':   'teach-it',
     'myp-pythagorean':  'teach-it',
     'myp-linear':       'teach-it',
+    'senior-quadratics':   'teach-it',
+    'senior-coordinates':  'teach-it',
+    'senior-trigonometry': 'teach-it',
+    'senior-statistics':   'teach-it',
+    'senior-proof':        'teach-it',
   };
 
   const XP_AWARDS = {

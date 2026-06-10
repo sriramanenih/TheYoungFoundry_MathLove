@@ -15,7 +15,7 @@
     { min: 5,  emoji: '🧑‍🔬', title: 'Pattern Seeker' },
     { min: 12, emoji: '🧑‍💻', title: 'Algebra Apprentice' },
     { min: 25, emoji: '👨‍🏫', title: 'Math Mentor' },
-    { min: 45, emoji: '🎓', title: 'Young Mathematician' },
+    { min: 60, emoji: '🎓', title: 'Young Mathematician' },
   ];
 
   /* ── Bands (render order = top of screen first) ── */
@@ -118,22 +118,27 @@
 
     /* Senior — Grade 9–10 */
     { id: 'quadratics', band: 'senior', grade: 'Grade 9 · Senior', icon: '🌙', name: 'Quadratics', key: true, gate: 15,
+      world: 'senior-quadratics', worldName: '🌙 Parabola Observatory', worldUrl: 'concept.html?c=quadratics',
       insight: 'Every ball thrown through the air, every satellite orbit, every supply-and-demand curve — all follow a parabola. Quadratics are the shape of motion itself.',
       professions: ['🔬 Physicists', '⚽ Sports Scientists', '🚀 Aerospace Engineers', '📈 Economists', '🎮 Physics Engine Devs'],
       builds: '🔗 Builds from: Linear Functions & Algebra' },
     { id: 'coordinate-geometry', band: 'senior', grade: 'Grade 9 · Senior', icon: '🗺️', name: 'Coordinate Geometry', gate: 15,
+      world: 'senior-coordinates', worldName: '🗺️ Descartes\' Grid', worldUrl: 'concept.html?c=coordinates',
       insight: 'René Descartes invented this from his bed, watching a fly on the ceiling. Today, every GPS, every game world, every map is built on his coordinate system.',
       professions: ['🎮 Game Developers', '🌌 Astronomers', '📡 GPS Engineers', '🤖 Robotics', '🚗 Self-Driving Cars'],
       builds: '🔗 Builds from: Geometry & Algebra' },
     { id: 'trigonometry', band: 'senior', grade: 'Grade 10 · Senior', icon: '🔭', name: 'Trigonometry', key: true, gate: 18,
+      world: 'senior-trigonometry', worldName: '🔭 Triangle Telescope', worldUrl: 'concept.html?c=trigonometry',
       insight: 'Ancient Greeks used trigonometry to measure the height of pyramids using only shadows. Today it steers ships, synthesizes music, and builds every suspension bridge.',
       professions: ['🏛️ Architects', '✈️ Pilots & Navigators', '🎵 Audio Engineers', '🌌 Astronomers', '🎮 3D Developers'],
       builds: '🔗 Builds from: Pythagoras' },
     { id: 'advanced-stats', band: 'senior', grade: 'Grade 10 · Senior', icon: '🧬', name: 'Advanced Statistics', gate: 18,
+      world: 'senior-statistics', worldName: '🧬 Truth Lab', worldUrl: 'concept.html?c=advanced-stats',
       insight: 'Every clinical drug trial, every election forecast, every AI model rests on advanced statistics. This is the mathematics that saves lives and shapes societies.',
       professions: ['🧬 Medical Researchers', '🌏 Policy Makers', '📊 Data Scientists', '💊 Epidemiologists', '🤖 ML Engineers'],
       builds: '🔗 Builds from: Probability & Statistics' },
     { id: 'proof', band: 'senior', grade: 'Grade 10 · Senior', icon: '💎', name: 'Proof & Reasoning', key: true, gate: 20,
+      world: 'senior-proof', worldName: '💎 The Proof Forge', worldUrl: 'concept.html?c=proof',
       insight: 'A proof is an argument so airtight that no one in the universe can disagree. Mathematicians have proven things that will be true for eternity. That\'s a kind of immortality.',
       professions: ['💻 Computer Scientists', '🔐 Cryptographers', '⚖️ Lawyers', '🔬 All Researchers', '🤖 AI Safety Engineers'],
       builds: '🔑 The crown of all mathematics' },

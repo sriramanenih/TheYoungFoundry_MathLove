@@ -303,7 +303,8 @@
 
   function init() {
     const id = conceptIdFromURL();
-    concept = (window.MYP_CONTENT && MYP_CONTENT[id]) || null;
+    const registry = Object.assign({}, window.MYP_CONTENT, window.SENIOR_CONTENT);
+    concept = registry[id] || null;
 
     if (!concept) {
       document.getElementById('topic-content').innerHTML =
