@@ -1,0 +1,61 @@
+/* ════════════════════════════════════════════════
+   THE YOUNG FOUNDRY — DESIGN TOKENS
+   Colors, fonts, spacing, radii, shadows, motion
+   ════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+  /* ── Typography ─────────────────────────────── */
+  --font-display: 'Fredoka One', 'Comic Sans MS', cursive;
+  --font-body:    'Nunito', 'Segoe UI', system-ui, sans-serif;
+
+  /* ── Brand colors ───────────────────────────── */
+  --tyf-green:  #a8f5c8;
+  --green:      #2ECC71;
+  --green-dark: #27AE60;
+  --red:        #e74c3c;
+  --orange:     #FF9F43;
+  --teal:       #00d2d3;
+  --pink:       #ff6b9d;
+
+  /* ── Algebra Academy theme ──────────────────── */
+  --algebra-primary: #5B4FCF;
+  --algebra-dark:    #3d2fa0;
+  --algebra-accent:  #FFD93D;
+  --algebra-bg:      #f0eeff;
+  --algebra-border:  #cfc8f2;
+  --purple-light:    #e8e4ff;
+
+  /* ── Neutrals ───────────────────────────────── */
+  --bg:        #f7f6fb;
+  --border:    #e6e3ef;
+  --text-dark: #2d2a3e;
+  --text-mid:  #55516b;
+  --text-soft: #8a8699;
+
+  /* ── Spacing ────────────────────────────────── */
+  --sp-xs:  4px;
+  --sp-sm:  8px;
+  --sp-md:  16px;
+  --sp-lg:  24px;
+  --sp-xl:  40px;
+  --sp-2xl: 64px;
+
+  /* ── Radii ──────────────────────────────────── */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-full: 999px;
+
+  /* ── Shadows ────────────────────────────────── */
+  --shadow-sm: 0 2px 6px rgba(45, 42, 62, 0.08);
+  --shadow-md: 0 6px 18px rgba(45, 42, 62, 0.12);
+  --shadow-lg: 0 14px 36px rgba(45, 42, 62, 0.18);
+
+  /* ── Motion ─────────────────────────────────── */
+  --t-fast: 0.15s ease;
+  --t-base: 0.25s ease;
+  --t-slow: 0.5s ease;
+}
