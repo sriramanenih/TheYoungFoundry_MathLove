@@ -299,6 +299,29 @@
     if (lvl)  lvl.textContent  = YF.getLevel().level;
   }
 
+  /* ── Welcome modal ───────────────────────────── */
+
+  function showWelcomeModal() {
+    document.getElementById('welcome-emoji').textContent = concept.icon;
+    document.getElementById('welcome-title').textContent = concept.name;
+    document.getElementById('welcome-insight').textContent = concept.insight;
+
+    const profList = document.getElementById('welcome-professions');
+    profList.innerHTML = '';
+    concept.professions.forEach(p => {
+      const item = document.createElement('span');
+      item.className = 'profession-item';
+      item.textContent = p;
+      profList.appendChild(item);
+    });
+
+    document.getElementById('welcome-modal').hidden = false;
+  }
+
+  function closeWelcomeModal() {
+    document.getElementById('welcome-modal').hidden = true;
+  }
+
   /* ── Init ─────────────────────────────────────── */
 
   function init() {
@@ -320,9 +343,22 @@
     YF.on('xp', renderHUDStats);
     YF.on('coins', renderHUDStats);
 
+    /* Set up welcome modal close button */
+    const closeBtn = document.getElementById('welcome-modal-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeWelcomeModal);
+      document.getElementById('welcome-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'welcome-modal') closeWelcomeModal();
+      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWelcomeModal(); });
+    }
+
     /* open the first incomplete topic */
     const firstOpen = concept.topics.findIndex(t => !topicComplete(t));
     openTopic(firstOpen === -1 ? 0 : firstOpen);
+
+    /* show welcome modal with professions */
+    showWelcomeModal();
   }
 
   if (document.readyState === 'loading') {

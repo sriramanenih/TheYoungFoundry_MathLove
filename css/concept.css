@@ -467,6 +467,93 @@
   white-space: nowrap;
 }
 
+/* ── Welcome modal (insight popup) ──────────────── */
+.welcome-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+}
+.welcome-modal[hidden] { display: none; }
+.welcome-modal-content {
+  background: white;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  width: 90%;
+  max-width: 520px;
+  padding: var(--sp-lg);
+  position: relative;
+  animation: slideDown 0.3s var(--t-ease);
+}
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.welcome-modal-close {
+  position: absolute;
+  top: var(--sp-md);
+  right: var(--sp-md);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--bg);
+  color: var(--text-mid);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+.welcome-modal-close:hover { background: var(--border); }
+.welcome-modal-body {
+  text-align: center;
+}
+.welcome-emoji {
+  display: block;
+  font-size: 3.5rem;
+  margin-bottom: var(--sp-sm);
+}
+.welcome-modal-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: var(--sp-sm);
+  color: var(--concept-dark);
+}
+.welcome-insight {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  margin-bottom: var(--sp-lg);
+}
+.welcome-section {
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-lg);
+}
+.welcome-label {
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: var(--sp-sm);
+  font-size: 0.9rem;
+}
+.profession-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  justify-content: center;
+}
+.profession-item {
+  background: var(--concept-bg);
+  color: var(--concept-dark);
+  padding: 8px 12px;
+  border-radius: var(--r-full);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--concept-accent);
+}
+
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 760px) {
   .concept-bar { gap: 8px; }
@@ -483,4 +570,6 @@
   .topic-item { min-width: 150px; }
   .sidebar-tier { display: none; }
   .topic-content { padding: var(--sp-lg) var(--sp-md) var(--sp-2xl); }
+  .welcome-modal { padding-top: 20px; }
+  .welcome-modal-content { width: 95%; max-width: none; }
 }

@@ -51,6 +51,22 @@
 
   <div id="toast-container"></div>
 
+  <!-- ── Welcome insight modal ─────────────────────── -->
+  <div id="welcome-modal" class="welcome-modal" hidden>
+    <div class="welcome-modal-content">
+      <button class="welcome-modal-close" id="welcome-modal-close" aria-label="Close">✕</button>
+      <div class="welcome-modal-body">
+        <span class="welcome-emoji" id="welcome-emoji">🔢</span>
+        <h2 id="welcome-title">Concept</h2>
+        <p class="welcome-insight" id="welcome-insight"></p>
+        <div class="welcome-section">
+          <div class="welcome-label">💼 Real professions using this today:</div>
+          <div class="profession-list" id="welcome-professions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ── Scripts ─────────────────────────────────── -->
   <script src="js/engine.js"></script>
   <script src="js/ui.js"></script>
