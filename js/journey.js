@@ -173,9 +173,9 @@
     return (reg[worldId] || []).length || 5;
   }
 
-  /* status: 'done' | 'active' | 'locked' | 'ready' */
-  function conceptStatus(c, state, completed) {
-    if (c.gate && completed < c.gate) return 'locked';
+  /* status: 'done' | 'active' | 'ready'
+     All concepts are freely accessible — no locking. */
+  function conceptStatus(c, state) {
     if (c.world) {
       const n = worldCompleted(state, c.world);
       if (n >= worldSize(c.world)) return 'done';
@@ -197,12 +197,12 @@
     let activeBand = 'pyp';                       /* default: first playable band */
     let sawActive = false;
     for (const c of CONCEPTS) {
-      const s = conceptStatus(c, state, completed);
+      const s = conceptStatus(c, state);
       if (s === 'active') { activeBand = c.band; sawActive = true; }
     }
     if (!sawActive) {
       /* No world mid-progress: park the avatar at the lowest band with a 'ready' playable world */
-      const next = CONCEPTS.find(c => c.world && conceptStatus(c, state, completed) === 'ready');
+      const next = CONCEPTS.find(c => c.world && conceptStatus(c, state) === 'ready');
       if (next) activeBand = next.band;
       else if (completed >= totalActivities()) activeBand = 'senior';
     }
@@ -233,7 +233,7 @@
       const area = document.createElement('div');
       area.className = 'band-concepts';
       for (const c of CONCEPTS.filter(c => c.band === band.id)) {
-        const status = conceptStatus(c, state, completed);
+        const status = conceptStatus(c, state);
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = 'concept-chip is-' + status + (c.key ? ' is-key' : '');
