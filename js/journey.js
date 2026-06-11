@@ -299,7 +299,7 @@
     } else {
       const tag = document.createElement('span');
       tag.className = 'concept-coming-soon';
-      tag.textContent = c.band === 'foundation' ? '🔓 Foundational — already in your bones' : '🔜 World coming soon';
+      tag.textContent = c.band === 'foundation' ? '📖 Covered in your classroom — ask your teacher!' : '🔧 This world is being built — check back soon!';
       actions.appendChild(tag);
     }
 
