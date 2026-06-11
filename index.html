@@ -1,626 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Young Foundry — Math Discovery Platform</title>
-  <link rel="stylesheet" href="css/tokens.css" />
-  <link rel="stylesheet" href="css/global.css" />
-  <style>
-    /* ── HOME-SPECIFIC STYLES ──────────────────── */
-
-    /* Hero */
-    .home-hero {
-      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
-      color: var(--text-dark);
-      padding: 80px var(--sp-lg) var(--sp-2xl);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      min-height: 460px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .home-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 25% 40%, rgba(67,160,71,0.10) 0%, transparent 55%),
-                  radial-gradient(ellipse at 75% 60%, rgba(229,57,53,0.08) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .home-hero .tagline {
-      font-family: var(--font-display);
-      font-size: clamp(0.85rem, 2vw, 1rem);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--brand-red);
-      margin-bottom: var(--sp-md);
-    }
-    .home-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 6vw, 4.5rem);
-      line-height: 1.05;
-      color: var(--text-dark);
-      margin-bottom: var(--sp-md);
-    }
-    .home-hero h1 .tyf  { color: var(--brand-red); }
-    .home-hero h1 .math { color: var(--brand-green); }
-    .home-hero .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--text-soft);
-      max-width: 560px;
-      margin: 0 auto var(--sp-xl);
-      font-weight: 600;
-      line-height: 1.6;
-    }
-    .hero-stars {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .hero-star {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: var(--brand-yellow);
-      border-radius: 50%;
-      opacity: 0;
-      animation: twinkle 3s ease infinite;
-    }
-    @keyframes twinkle {
-      0%,100% { opacity: 0; transform: scale(0.5); }
-      50%      { opacity: 0.8; transform: scale(1); }
-    }
-
-    /* Philosophy strip */
-    .philosophy-strip {
-      background: var(--brand-green);
-      padding: var(--sp-md) var(--sp-lg);
-      text-align: center;
-    }
-    .philosophy-strip p {
-      font-family: var(--font-display);
-      font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-      color: white;
-    }
-    .philosophy-strip p span { color: var(--brand-yellow); }
-
-    /* Student profile bar */
-    .student-bar {
-      background: white;
-      border-bottom: 2px solid var(--border);
-      padding: var(--sp-md) var(--sp-lg);
-    }
-    .student-bar-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--sp-md);
-      flex-wrap: wrap;
-    }
-    .student-greeting {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      color: var(--text-dark);
-    }
-    .student-stats {
-      display: flex;
-      gap: var(--sp-md);
-      flex-wrap: wrap;
-    }
-    .stat-pill {
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: var(--r-full);
-      padding: 6px 16px;
-      font-weight: 800;
-      font-size: 0.875rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* World Map section */
-    .map-section {
-      padding: var(--sp-xl) var(--sp-lg);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--sp-xl);
-    }
-    .section-header h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      color: var(--text-dark);
-    }
-    .section-header p {
-      color: var(--text-soft);
-      margin-top: var(--sp-sm);
-      font-size: 1.05rem;
-    }
-
-    /* World Cards Grid */
-    .worlds-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--sp-lg);
-    }
-    .world-card {
-      border-radius: var(--r-xl);
-      border: 2px solid var(--border);
-      overflow: hidden;
-      background: white;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--t-base), box-shadow var(--t-base);
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .world-card:hover:not(.locked) { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-    .world-card.locked { opacity: 0.6; cursor: not-allowed; }
-    .world-card.featured { border-color: var(--brand-red); border-width: 3px; }
-    .world-card-banner {
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .world-card-body { padding: var(--sp-lg); flex: 1; display: flex; flex-direction: column; }
-    .world-card-body h3 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: var(--text-dark);
-      margin-bottom: var(--sp-sm);
-    }
-    .world-card-body .desc {
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      flex: 1;
-    }
-    .world-card-footer {
-      padding: var(--sp-md) var(--sp-lg);
-      border-top: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .world-progress-ring {
-      width: 48px;
-      height: 48px;
-      position: relative;
-    }
-    .world-progress-ring svg { transform: rotate(-90deg); }
-    .world-progress-ring .ring-bg   { fill: none; stroke: var(--border); stroke-width: 4; }
-    .world-progress-ring .ring-fill { fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
-    .world-progress-ring .ring-label {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.7rem;
-    }
-
-    /* FEATURED badge */
-    .featured-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--brand-green);
-      color: white;
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      padding: 4px 12px;
-      border-radius: var(--r-full);
-      border: 2px solid rgba(255,255,255,0.5);
-    }
-    .new-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: var(--green);
-      color: white;
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      padding: 3px 10px;
-      border-radius: var(--r-full);
-    }
-    .lock-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-    }
-
-    /* Philosophy section */
-    .philosophy-section {
-      background: linear-gradient(135deg, var(--brand-red-bg), var(--brand-green-bg));
-      padding: var(--sp-2xl) var(--sp-lg);
-    }
-    .philosophy-inner { max-width: 800px; margin: 0 auto; text-align: center; }
-    .journey-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: var(--sp-md);
-      margin-top: var(--sp-xl);
-    }
-    .journey-step {
-      background: white;
-      border-radius: var(--r-lg);
-      padding: var(--sp-md) var(--sp-sm);
-      border: 2px solid var(--brand-green-light);
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-    }
-    .journey-step .step-num {
-      width: 32px;
-      height: 32px;
-      background: var(--brand-red);
-      color: white;
-      border-radius: 50%;
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto var(--sp-sm);
-    }
-    .journey-step p { font-weight: 700; font-size: 0.8rem; color: var(--text-dark); }
-
-    /* Footer */
-    footer {
-      background: white;
-      border-top: 2px solid var(--border);
-      color: var(--text-soft);
-      padding: var(--sp-xl) var(--sp-lg);
-      text-align: center;
-    }
-    footer .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--text-dark);
-      margin-bottom: var(--sp-sm);
-    }
-    footer .footer-logo .tyf  { color: var(--brand-red); }
-    footer .footer-logo .math { color: var(--brand-green); }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .home-hero { min-height: 360px; padding: 80px var(--sp-md) var(--sp-xl); }
-      .worlds-grid { grid-template-columns: 1fr; }
-      .journey-steps { grid-template-columns: repeat(4, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .journey-steps { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
-</head>
 <body>
 
   <!-- ── HUD ─────────────────────────────────────── -->
   <nav id="platform-hud">
     <div class="hud-logo">
       <span>🏭</span>
-      <span><span class="tyf">The Young</span> <span class="foundry">Foundry</span></span>
+      <span>
+        <span class="tyf">The Young</span>
+        <span class="foundry">Foundry</span>
+      </span>
     </div>
+
     <div class="hud-stats">
-      <a href="journey.html" style="font-family:var(--font-display);font-size:0.8rem;color:var(--text-mid);text-decoration:none;padding:4px 12px;border:1.5px solid var(--border);border-radius:var(--r-full);white-space:nowrap;transition:border-color 0.15s ease" onmouseover="this.style.borderColor='var(--brand-red)'" onmouseout="this.style.borderColor='var(--border)'">🗺️ Journey Map</a>
+      <a href="journey.html"
+         style="font-family:var(--font-display);
+                font-size:0.8rem;
+                color:var(--text-mid);
+                text-decoration:none;
+                padding:4px 12px;
+                border:1.5px solid var(--border);
+                border-radius:var(--r-full);">
+        🗺️ Journey Map
+      </a>
+
       <div class="hud-stat hud-xp">
         <span class="icon">⚡</span>
         <span id="hud-xp-val">0</span>
-        <span class="label" style="font-size:0.75rem;opacity:0.7">XP</span>
       </div>
+
       <div class="hud-stat hud-coin">
         <span class="icon">🪙</span>
         <span id="hud-coin-val">0</span>
       </div>
-      <div class="hud-stat" style="background:var(--brand-green);color:white;padding:4px 12px;border-radius:var(--r-full);font-size:0.85rem">
-        Lv <span id="hud-level-val">1</span>
-        <div class="xp-bar-track" style="width:48px;margin-left:8px">
-          <div class="xp-bar-fill" id="hud-xp-bar" style="width:0%"></div>
-        </div>
-      </div>
     </div>
   </nav>
 
+
   <!-- ── HERO ────────────────────────────────────── -->
-  <header class="home-hero" style="padding-top:80px">
-    <!-- Stars -->
-    <div class="hero-stars" id="hero-stars" aria-hidden="true"></div>
+  <header class="home-hero">
 
     <p class="tagline">🏭 The Young Foundry</p>
+
     <h1>
       Discover <span class="math">Mathematics</span><br>
       <span class="tyf">Don't Just Memorize It</span>
     </h1>
+
     <p class="hero-sub">
-      Every formula was invented by someone who wondered why.
-      Now it's your turn to wonder — and discover.
+      Explore interactive worlds where mathematical ideas come to life.
     </p>
-    <div style="display:flex;gap:var(--sp-md);flex-wrap:wrap;justify-content:center">
-      <a href="journey.html" class="btn btn-lg" style="background:var(--brand-green);color:white;box-shadow:var(--shadow-md);font-size:1.2rem">
-        🚀 Start Your Journey
-      </a>
-      <a href="#worlds-section" class="btn btn-lg btn-secondary" style="font-size:1.1rem">
-        🌍 Browse Worlds
-      </a>
-    </div>
+
+    <a href="#worlds-section"
+       class="btn btn-lg"
+       style="background:var(--brand-green);
+              color:white;
+              font-size:1.15rem;">
+      🌍 Explore Worlds
+    </a>
+
   </header>
 
-  <!-- ── PHILOSOPHY STRIP ─────────────────────────── -->
-  <div class="philosophy-strip">
-    <p>Every lesson follows: <span>Observe</span> → <span>Explore</span> → <span>Discover</span> → <span>Explain</span> → <span>Apply</span> → <span>Create</span> → <span>Teach</span></p>
-  </div>
 
-  <!-- ── STUDENT BAR ──────────────────────────────── -->
-  <div class="student-bar" id="student-bar">
-    <div class="student-bar-inner">
-      <p class="student-greeting">👋 Welcome back, <strong id="student-name">Explorer</strong>!</p>
-      <div class="student-stats">
-        <div class="stat-pill">⚡ <span id="stat-xp">0</span> XP</div>
-        <div class="stat-pill">🪙 <span id="stat-coins">0</span></div>
-        <div class="stat-pill">✨ <span id="stat-disc">0</span> discoveries</div>
-        <button class="btn btn-secondary btn-sm" id="reset-btn" title="Reset progress">↺ Reset</button>
-      </div>
-    </div>
-  </div>
+  <!-- ── WORLDS ──────────────────────────────────── -->
+  <section id="worlds-section"
+           style="padding:var(--sp-xl) 0;background:var(--bg)">
 
-  <!-- ── WORLD MAP ────────────────────────────────── -->
-  <section id="worlds-section" style="padding:var(--sp-xl) 0;background:var(--bg)">
     <div class="map-section">
+
       <div class="section-header">
-        <p class="caption" style="color:var(--brand-red)">🗺️ YOUR LEARNING JOURNEY</p>
-        <h2>Choose Your World</h2>
-        <p>Five worlds. Each one builds on the last. Each one built on discovery.</p>
+        <h2>Explore Math Worlds</h2>
+        <p>Start anywhere. Follow your curiosity.</p>
       </div>
 
       <div class="worlds-grid" id="worlds-grid">
         <!-- Rendered by JS -->
       </div>
+
     </div>
+
   </section>
 
-  <!-- ── PHILOSOPHY SECTION ───────────────────────── -->
-  <section class="philosophy-section">
-    <div class="philosophy-inner">
-      <p class="caption" style="color:var(--brand-red)">⚗️ HOW WE LEARN</p>
-      <h2 class="headline mt-sm" style="color:var(--text-dark)">No formula before the "aha moment"</h2>
-      <p class="body mt-md" style="color:var(--text-mid);line-height:1.7">
-        At The Young Foundry, we believe every mathematical formula is the shortcut to something a child already knows in their bones.
-        We make sure children discover the idea <em>before</em> they ever see the symbol.
+
+  <!-- ── PROGRESS ────────────────────────────────── -->
+  <section style="padding:80px 20px;background:white;">
+
+    <div style="max-width:900px;margin:auto;text-align:center;">
+
+      <h2 style="font-family:var(--font-display);margin-bottom:12px;">
+        Your Progress
+      </h2>
+
+      <p style="color:var(--text-soft);margin-bottom:32px;">
+        Keep exploring and unlock new discoveries.
       </p>
 
-      <div class="journey-steps">
-        <div class="journey-step">
-          <div class="step-num">1</div>
-          <p>👁️ Observe</p>
+      <div style="
+        display:flex;
+        justify-content:center;
+        gap:16px;
+        flex-wrap:wrap;
+        margin-bottom:32px;
+      ">
+
+        <div class="stat-pill">
+          ⚡ <span id="stat-xp">0</span> XP
         </div>
-        <div class="journey-step">
-          <div class="step-num">2</div>
-          <p>🧪 Explore</p>
+
+        <div class="stat-pill">
+          ✨ <span id="stat-disc">0</span> Discoveries
         </div>
-        <div class="journey-step">
-          <div class="step-num">3</div>
-          <p>💡 Discover</p>
+
+        <div class="stat-pill">
+          🪙 <span id="stat-coins">0</span>
         </div>
-        <div class="journey-step">
-          <div class="step-num">4</div>
-          <p>📝 Explain</p>
-        </div>
-        <div class="journey-step">
-          <div class="step-num">5</div>
-          <p>🛠️ Apply</p>
-        </div>
-        <div class="journey-step">
-          <div class="step-num">6</div>
-          <p>🏗️ Create</p>
-        </div>
-        <div class="journey-step">
-          <div class="step-num">7</div>
-          <p>🎓 Teach</p>
-        </div>
+
       </div>
+
+      <a href="journey.html"
+         class="btn btn-lg"
+         style="background:var(--brand-red);color:white;">
+        Continue Learning →
+      </a>
+
     </div>
+
   </section>
 
-  <!-- ── FOOTER ───────────────────────────────────── -->
+
+  <!-- ── FOOTER ──────────────────────────────────── -->
   <footer>
-    <div class="footer-logo">🏭 <span class="tyf">The Young</span> <span class="math">Foundry</span></div>
-    <p style="font-size:0.875rem;margin-top:var(--sp-sm)">Built for curious minds. Ages 9–12.</p>
-    <p style="font-size:0.8rem;margin-top:var(--sp-sm);color:var(--text-soft);opacity:0.8">
-      A Young Foundry Platform · Discovery-based learning · No ads · No accounts needed
+    <div class="footer-logo">
+      🏭
+      <span class="tyf">The Young</span>
+      <span class="math">Foundry</span>
+    </div>
+
+    <p style="font-size:0.875rem;margin-top:var(--sp-sm)">
+      Built for curious minds. Ages 9–12.
+    </p>
+
+    <p style="font-size:0.8rem;margin-top:var(--sp-sm);opacity:0.8">
+      Discovery-based learning · No ads · No accounts needed
     </p>
   </footer>
 
-  <!-- Toast container -->
-  <div id="toast-container"></div>
-
-  <!-- Scripts -->
-  <script src="js/engine.js"></script>
-  <script src="js/ui.js"></script>
-
-  <script>
-    // ── WORLD DEFINITIONS ──────────────────────────
-    const WORLDS = [
-      {
-        id:       'number-sense',
-        title:    'Number Sense Kingdom',
-        emoji:    '🏰',
-        desc:     'What do numbers really mean? Build towers, explore place value, and discover the language of quantity.',
-        color:    ['#FF9F43', '#ee5a24'],
-        gradient: 'linear-gradient(135deg,#ff9f43,#ee5a24)',
-        locked:   false,
-        tags:     ['Place Value','Number Lines','Compare & Order'],
-        url:      'worlds/number-sense/index.html',
-      },
-      {
-        id:       'multiplication',
-        title:    'Multiplication Village',
-        emoji:    '🏘️',
-        desc:     'Discover multiplication through rows, arrays, and a theater seating mystery. It\'s faster than counting!',
-        color:    ['#00d2d3','#01aaa4'],
-        gradient: 'linear-gradient(135deg,#00d2d3,#01aaa4)',
-        locked:   false,
-        tags:     ['Arrays','Groups','Skip Counting'],
-        url:      'worlds/multiplication/index.html',
-      },
-      {
-        id:       'fraction-factory',
-        title:    'Fraction Factory',
-        emoji:    '🍕',
-        desc:     'Run a pizza bakery. Cut cakes. Share chocolate. And discover that fractions are just fair sharing.',
-        color:    ['#ff6b9d','#c0392b'],
-        gradient: 'linear-gradient(135deg,#ff6b9d,#c0392b)',
-        locked:   false,
-        tags:     ['Parts & Wholes','Equivalence','Compare'],
-        url:      'worlds/fraction-factory/index.html',
-      },
-      {
-        id:       'area-perimeter',
-        title:    'Area & Perimeter Park',
-        emoji:    '🌿',
-        desc:     'Cover land with tiles. Build fences. Discover that formulas are just shortcuts for what you already know.',
-        color:    ['#2ECC71','#27AE60'],
-        gradient: 'linear-gradient(135deg,#2ECC71,#27AE60)',
-        locked:   false,
-        tags:     ['Tile Counting','Fence Building','Garden Design'],
-        url:      'worlds/area-perimeter/index.html',
-      },
-      {
-        id:       'algebra-academy',
-        title:    'Algebra Academy',
-        emoji:    '⚖️',
-        desc:     'Unlock the secret language of mathematics. Mystery boxes. Balance scales. And the thrill of finding x.',
-        color:    ['#5B4FCF','#3d2fa0'],
-        gradient: 'linear-gradient(135deg,#5B4FCF,#3d2fa0)',
-        locked:   false,
-        tags:     ['Variables','Equations','Solving'],
-        url:      'worlds/algebra-academy/index.html',
-      },
-    ];
-
-    function renderWorldCard(world) {
-      const mastery = YF.getMastery(world.id);
-      const pct     = Math.round(mastery * 100);
-      const tier    = YF.getMasteryTier(world.id);
-      const circumference = 2 * Math.PI * 18;
-      const offset  = circumference - (pct / 100) * circumference;
-
-      return `
-        <a href="${world.url || '#'}"
-           class="world-card${world.locked ? ' locked' : ''}${world.featured ? ' featured' : ''}"
-           ${world.locked ? 'onclick="return lockedClick(event)"' : ''}
-           style="--world-color:${world.color[0]}">
-
-          <div class="world-card-banner" style="background:${world.gradient}">
-            <span style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))">${world.emoji}</span>
-            ${world.featured ? '<div class="featured-badge">✨ START HERE</div>' : ''}
-            ${world.coming   ? '<div class="new-badge">Coming Soon</div>' : ''}
-            ${world.locked   ? '<div class="lock-overlay">🔒</div>' : ''}
-          </div>
-
-          <div class="world-card-body">
-            <h3>${world.title}</h3>
-            <p class="desc">${world.desc}</p>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:var(--sp-sm)">
-              ${world.tags.map(t => `<span class="badge badge-purple" style="font-size:0.7rem;padding:2px 10px">${t}</span>`).join('')}
-            </div>
-          </div>
-
-          <div class="world-card-footer">
-            <div>
-              ${tier
-                ? `<span class="badge badge-${tier.name}">${tier.icon} ${tier.label}</span>`
-                : `<span class="body-sm" style="color:var(--text-soft)">${world.locked ? 'Locked' : 'Not started'}</span>`
-              }
-            </div>
-            <div class="world-progress-ring">
-              <svg viewBox="0 0 40 40" width="48" height="48">
-                <circle class="ring-bg"   cx="20" cy="20" r="18"/>
-                <circle class="ring-fill" cx="20" cy="20" r="18"
-                  stroke="${world.color[0]}"
-                  stroke-dasharray="${circumference}"
-                  stroke-dashoffset="${offset}"/>
-              </svg>
-              <div class="ring-label" style="color:${world.color[0]}">${pct}%</div>
-            </div>
-          </div>
-        </a>
-      `;
-    }
-
-    function renderWorldMap() {
-      const grid = document.getElementById('worlds-grid');
-      grid.innerHTML = WORLDS.map(renderWorldCard).join('');
-    }
-
-    function lockedClick(e) {
-      e.preventDefault();
-      YFUI.toast('🔒 This world is coming soon! Explore the open worlds first.', '', 2500);
-      return false;
-    }
-
-    function updateStudentBar() {
-      const state = YF.getState();
-      document.getElementById('student-name').textContent = state.student.name;
-      document.getElementById('stat-xp').textContent     = YF.getXP().toLocaleString();
-      document.getElementById('stat-coins').textContent  = YF.getCoins().toLocaleString();
-      document.getElementById('stat-disc').textContent   = state.discoveries.length;
-      YFUI.renderHUD();
-      renderWorldMap();
-    }
-
-    // Generate twinkling confetti dots in brand colors
-    function generateStars() {
-      const container = document.getElementById('hero-stars');
-      const colors = ['#E53935', '#43A047', '#FDD835', '#1E88E5', '#F97316'];
-      for (let i = 0; i < 60; i++) {
-        const star = document.createElement('div');
-        star.className = 'hero-star';
-        star.style.background = colors[i % colors.length];
-        star.style.left   = Math.random() * 100 + '%';
-        star.style.top    = Math.random() * 100 + '%';
-        star.style.animationDelay    = Math.random() * 3 + 's';
-        star.style.animationDuration = (2 + Math.random() * 3) + 's';
-        container.appendChild(star);
-      }
-    }
-
-    // Reset button
-    document.getElementById('reset-btn').addEventListener('click', () => {
-      if (confirm('Reset all progress? This cannot be undone.')) {
-        YF.reset();
-        updateStudentBar();
-        YFUI.toast('Progress reset. Ready to explore again!', 'success');
-      }
-    });
-
-    // Listen for engine events
-    YF.on('*', () => updateStudentBar());
-
-    // Init
-    generateStars();
-    YFUI.initHUD();
-    YFUI.showOnboarding(() => updateStudentBar());
-    updateStudentBar();
-  </script>
 </body>
-</html>
